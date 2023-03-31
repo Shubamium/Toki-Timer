@@ -15,8 +15,10 @@ function App() {
 
   function startTimer(){
       if(!interval){
-        const intervalId = window.setInterval(countDown,1000);
+        const intervalId = window.setInterval(countDown,1);
         setInterval(intervalId);
+      }else{
+        paused.current = false;
       }
   }
 
@@ -27,15 +29,21 @@ function App() {
     });
   }
   const pauseTimer = () => {
-    console.log(paused.current);
-    paused.current = !paused.current;
+    paused.current = true;
   };
+
+  const resetTimer = () => {
+      clearInterval(interval);
+      setInterval(null);
+      setTime(0);
+      paused.current = false;
+  }
   return (
     <div className="App">
       <p>{timeToString(timeObj)}</p>
       <button onClick={startTimer}>Start</button>
       <button onClick={pauseTimer}>Stop</button>
-      <button onClick={countDown}>Reset</button>
+      <button onClick={resetTimer}>Reset</button>
     </div>
   )
 }
