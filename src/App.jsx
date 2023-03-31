@@ -6,21 +6,36 @@ import './App.css'
 function App() {
 
   const [time,setTime] = useState(0);
+  const paused = useRef(false);
   const [timeObj,setTimeObj] = useState({});
   const [interval,setInterval] = useState(null); 
   useEffect(()=>{
      setTimeObj(secondToTime(time));
   },[time])
 
+  function startTimer(){
+      if(!interval){
+        const intervalId = window.setInterval(countDown,1000);
+        setInterval(intervalId);
+      }
+  }
 
-
+  function countDown(){
+    if(paused.current)return;
+    setTime((prev)=>{
+      return prev + 1;
+    });
+  }
+  const pauseTimer = () => {
+    console.log(paused.current);
+    paused.current = !paused.current;
+  };
   return (
     <div className="App">
-      {timeObj && <p>{time}||{timeObj.hours}:{timeObj.minutes}:{timeObj.seconds}</p>}
       <p>{timeToString(timeObj)}</p>
-      <button onClick={()=>{setTime((prev) => prev+100)}}>Start</button>
-      <button>Stop</button>
-      <button>Reset</button>
+      <button onClick={startTimer}>Start</button>
+      <button onClick={pauseTimer}>Stop</button>
+      <button onClick={countDown}>Reset</button>
     </div>
   )
 }
