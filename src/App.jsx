@@ -11,7 +11,8 @@ function App() {
   const [interval,setInterval] = useState(null); 
   
   const [delayUtc,setDelayUtc] = useState();
-  const timeUtc = useRef();
+  const startUtc = useRef(); 
+  const pausedAt = useRef(); 
 
   useEffect(()=>{
      setTimeObj(secondToTime(time));
@@ -19,11 +20,15 @@ function App() {
 
   function startTimer(){
     if(!interval){
-        timeUtc.current = Date.now();
+        startUtc.current = Date.now();
         const intervalId = window.setInterval(countDownMili,20);
         console.log(Date.now());
         setInterval(intervalId);
       }else{
+
+        const pausedDelay = (Date.now() - pausedAt.current);
+        startUtc.current += pausedDelay;
+        console.log(startUtc.current,pausedDelay,'current')
         paused.current = false;
       }
   }
@@ -32,7 +37,7 @@ function App() {
 
   function countDownMili(){
       if(paused.current)return;
-      setDelayUtc(Date.now() - timeUtc.current);
+      setDelayUtc(Date.now() - startUtc.current);
   }
   function countDown(){
     if(paused.current)return;
@@ -42,6 +47,7 @@ function App() {
   }
   const pauseTimer = () => {
     paused.current = true;
+    pausedAt.current = Date.now();
   };
 
   const resetTimer = () => {
