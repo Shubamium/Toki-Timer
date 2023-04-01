@@ -7,16 +7,13 @@ function App() {
 
   const [time,setTime] = useState(0);
   const paused = useRef(false);
-  const [timeObj,setTimeObj] = useState({});
+  const [isPaused, setIsPaused] = useState(true);
   const [interval,setInterval] = useState(null); 
   
   const [delayUtc,setDelayUtc] = useState();
   const startUtc = useRef(); 
   const pausedAt = useRef(); 
 
-  useEffect(()=>{
-     setTimeObj(secondToTime(time));
-  },[time])
 
   function startTimer(){
     if(!interval){
@@ -24,32 +21,27 @@ function App() {
         const intervalId = window.setInterval(countDownMili,20);
         console.log(Date.now());
         setInterval(intervalId);
+        setIsPaused(false);
       }else{
 
         const pausedDelay = (Date.now() - pausedAt.current);
         startUtc.current += pausedDelay;
         console.log(startUtc.current,pausedDelay,'current')
         paused.current = false;
+        setIsPaused(false);
       }
   }
-
-
 
   function countDownMili(){
       if(paused.current)return;
       setDelayUtc(Date.now() - startUtc.current);
   }
-  function countDown(){
-    if(paused.current)return;
-    setTime((prev)=>{
-      return prev + 1;
-    });
-  }
   const pauseTimer = () => {
     paused.current = true;
     pausedAt.current = Date.now();
-  };
+    setIsPaused(true);
 
+  };
   const resetTimer = () => {
       clearInterval(interval);
       setInterval(null);
@@ -60,8 +52,7 @@ function App() {
     <div className="App">
       {/* <p>{timeToString(timeObj)}</p> */}
       <p>{timeToString(msToTime(delayUtc))}</p>
-      <button onClick={startTimer}>Start</button>
-      <button onClick={pauseTimer}>Stop</button>
+      <button onClick={isPaused ? startTimer : pauseTimer}>{isPaused ? 'Start' : 'Pause'}</button>
       <button onClick={resetTimer}>Reset</button>
     </div>
   )
