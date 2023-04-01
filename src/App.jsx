@@ -5,7 +5,6 @@ import './App.css'
 
 function App() {
 
-  const [time,setTime] = useState(0);
   const paused = useRef(false);
   const [isPaused, setIsPaused] = useState(true);
   const [interval,setInterval] = useState(null); 
@@ -18,7 +17,7 @@ function App() {
   function startTimer(){
     if(!interval){
         startUtc.current = Date.now();
-        const intervalId = window.setInterval(countDownMili,20);
+        const intervalId = window.setInterval(countDownMili,40);
         setInterval(intervalId);
         setIsPaused(false);
       }else{
@@ -47,10 +46,15 @@ function App() {
       setIsPaused(true);
       setDelayUtc(0);
   }
+  
+  const renderTime = (delay)=>{
+    const time = msToTime(delay);
+    return <p className='time'>{timeToString(time)}-<span className='ms'>{time.ms ? time.ms % 100 : '00'}</span></p>
+  }
   return (
     <div className="App">
       {/* <p>{timeToString(timeObj)}</p> */}
-      <p>{timeToString(msToTime(delayUtc))}</p>
+      <p>{renderTime(delayUtc)}</p>
       <button onClick={isPaused ? startTimer : pauseTimer}>{isPaused ? 'Start' : 'Pause'}</button>
       <button onClick={resetTimer}>Reset</button>
     </div>
@@ -94,7 +98,7 @@ function timeToString(timeObj){
   const minute = addZero(timeObj.minutes) || '00';
   const seconds =  addZero(timeObj.seconds) || '00';
   
-  const string = `${hours+ ':'}${minute + ':'}${seconds}`;
+  const string = `${hours+ ':'}${minute + ':'}${seconds + '.'}${Math.floor(timeObj.ms / 100) || '0'}`;
 
   return string;
 }
