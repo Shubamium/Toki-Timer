@@ -19,14 +19,12 @@ function App() {
     if(!interval){
         startUtc.current = Date.now();
         const intervalId = window.setInterval(countDownMili,20);
-        console.log(Date.now());
         setInterval(intervalId);
         setIsPaused(false);
       }else{
 
         const pausedDelay = (Date.now() - pausedAt.current);
         startUtc.current += pausedDelay;
-        console.log(startUtc.current,pausedDelay,'current')
         paused.current = false;
         setIsPaused(false);
       }
@@ -45,8 +43,9 @@ function App() {
   const resetTimer = () => {
       clearInterval(interval);
       setInterval(null);
-      setTime(0);
       paused.current = false;
+      setIsPaused(true);
+      setDelayUtc(0);
   }
   return (
     <div className="App">
