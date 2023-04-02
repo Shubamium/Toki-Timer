@@ -1,10 +1,9 @@
 import { msToTime, timeToString } from './utility'
-import useTimer from './useTimer'
 import styled from 'styled-components';
-import DigitalTime from './DigitalTimer';
+import useTimer from './components/hooks/useTimer';
+import DigitalTime from './components/DigitalTimer';
 
-
-export default function Timer() {
+export default function Stopwatch() {
     const {elapsed, startTimer,pauseTimer,resetTimer,isPaused} = useTimer();
     const renderTime = (delay)=>{
         const time = msToTime(delay);

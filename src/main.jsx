@@ -2,8 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
+import Timer from './components/Timer'
 import './index.css'
-import Timer from './timer'
+import Stopwatch from './Stopwatch'
 
 
 const router = createBrowserRouter([
@@ -13,10 +14,11 @@ const router = createBrowserRouter([
     children:[
       {
         index:true,
-        element:<Timer/>
+        element:<Stopwatch/>
       },
       {
-        path:'stopwatch'
+        path:'timer',
+        element:<Timer/>
       },
       {
         path:'world'
