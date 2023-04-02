@@ -1,19 +1,8 @@
 import { msToTime, timeToString } from './utility'
 import useTimer from './useTimer'
 import styled from 'styled-components';
+import DigitalTime from './DigitalTimer';
 
-const DigitalTime = styled.p`
-
-  color: #000000;
-  font-weight: bold;
-  font-family: var(--mainFont);
-  font-size: 2rem;
-  & .ms{
-    font-size: small;
-    font-weight: normal;
-    color: #272727;
-  }
-`
 
 export default function Timer() {
     const {elapsed, startTimer,pauseTimer,resetTimer,isPaused} = useTimer();
