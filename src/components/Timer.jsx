@@ -4,7 +4,7 @@ import DigitalTime from "./DigitalTimer";
 import useTimer from "./hooks/useTimer"
 
 export default function Timer() {
-  const {elapsed, setTimer, startCountdown} = useTimer();
+  const {elapsed, setTimer, startCountdown,isPaused,pauseTimer} = useTimer();
   
   function renderTimer(){
     const timeObj = msToTime(elapsed);
@@ -19,7 +19,13 @@ export default function Timer() {
     <div>
       <h2>Timer</h2>
       { renderTimer()}
-      <button onClick={startCountdown}>Start</button>
+      {isPaused ? 
+      (
+        <button onClick={startCountdown}>Start</button>
+      )
+      : (
+        <button onClick={pauseTimer}>Pause</button>
+      )}
     </div>
   )
 }
