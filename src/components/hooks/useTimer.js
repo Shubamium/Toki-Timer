@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useRef, useState } from "react";
 
 export default function useTimer(){
@@ -9,9 +10,7 @@ export default function useTimer(){
     const startUtc = useRef(); 
     const pausedAt = useRef(); 
     const countdownOrigin = useRef(); 
-    
-
-    
+  
     const pauseTimer = () => {
       paused.current = true;
       pausedAt.current = Date.now();
@@ -25,6 +24,14 @@ export default function useTimer(){
         setDelayUtc(0);
     }
   
+
+      
+    useEffect(()=>{
+      return ()=>{
+        resetTimer();
+      }
+    },[]);
+    
     // StopWatch Function
     function startTimer(){
       if(!interval.current){
