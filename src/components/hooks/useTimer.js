@@ -3,11 +3,14 @@ import { useRef, useState } from "react";
 export default function useTimer(){
     const paused = useRef(false);
     const [isPaused, setIsPaused] = useState(true);
-    const [interval,setInterval] = useState(null); 
+    const interval = useRef(null); 
     
-    const [delayUtc,setDelayUtc] = useState();
+    const [delayUtc,setDelayUtc] = useState(0);
     const startUtc = useRef(); 
     const pausedAt = useRef(); 
+    const countdownOrigin = useRef(); 
+    
+
     
     const pauseTimer = () => {
       paused.current = true;
@@ -15,18 +18,19 @@ export default function useTimer(){
       setIsPaused(true);
     };
     const resetTimer = () => {
-        clearInterval(interval);
-        setInterval(null);
+        clearInterval(interval.current);
+        interval.current = null;
         paused.current = false;
         setIsPaused(true);
         setDelayUtc(0);
     }
   
+    // StopWatch Function
     function startTimer(){
-      if(!interval){
+      if(!interval.current){
           startUtc.current = Date.now();
           const intervalId = window.setInterval(countDownMili,45);
-          setInterval(intervalId);
+          interval.current = intervalId;
           setIsPaused(false);
         }else{
   
@@ -40,7 +44,40 @@ export default function useTimer(){
         if(paused.current)return;
         setDelayUtc(Date.now() - startUtc.current);
     }
-  
-    return {elapsed:delayUtc,pauseTimer,resetTimer,startTimer, isPaused}
+
+    
+    // Timer Function
+    function setTimer(ms){
+      countdownOrigin.current = ms;
+      setDelayUtc(ms);
+    }
+    function countDown(){
+        if(paused.current)return;
+        const elapsed = Math.abs(startUtc.current - Date.now());
+        const result = countdownOrigin.current - elapsed;
+        if(result <= 0){
+          resetTimer();
+          console.log('finished',interval);
+          // clearInterval(interval.current);
+          return;
+        }
+        console.log(result);
+        setDelayUtc(result);
+    }
+    function startCountdown(){
+        if(!interval.current){
+          console.log('starting');
+          startUtc.current = Date.now();
+          const intervalId = window.setInterval(countDown,45);
+          interval.current = intervalId
+          setIsPaused(false);
+        }else{
+          const pausedDelay = (Date.now() - pausedAt.current);
+          startUtc.current += pausedDelay;
+          paused.current = false;
+          setIsPaused(false);
+        }
+    }
+    return {elapsed:delayUtc,pauseTimer,resetTimer,startTimer, isPaused,setTimer, startCountdown}
    
 }

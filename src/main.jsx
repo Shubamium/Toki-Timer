@@ -4,8 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
 import Timer from './components/Timer'
 import './index.css'
-import Stopwatch from './Stopwatch'
-
+import Stopwatch from './components/Stopwatch'
 
 const router = createBrowserRouter([
   {

@@ -1,6 +1,25 @@
+import { useEffect } from "react";
+import { msToTime, timeToString } from "../utility";
+import DigitalTime from "./DigitalTimer";
+import useTimer from "./hooks/useTimer"
 
 export default function Timer() {
+  const {elapsed, setTimer, startCountdown} = useTimer();
+  
+  function renderTimer(){
+    const timeObj = msToTime(elapsed);
+    return (
+      <DigitalTime>{timeToString(timeObj)}<span className="ms">{timeObj.msTrimmed}</span></DigitalTime>
+    );
+  }
+  useEffect(()=>{
+    setTimer(5000);
+  },[])
   return (
-    <div>Timer</div>
+    <div>
+      <h2>Timer</h2>
+      { renderTimer()}
+      <button onClick={startCountdown}>Start</button>
+    </div>
   )
 }
