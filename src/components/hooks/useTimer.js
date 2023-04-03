@@ -48,6 +48,7 @@ export default function useTimer(){
     
     // Timer Function
     function setTimer(ms){
+      resetTimer();
       countdownOrigin.current = ms;
       setDelayUtc(ms);
     }

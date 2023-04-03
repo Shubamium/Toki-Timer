@@ -23,18 +23,26 @@ export function msToTime(ms){
     return {hours,minutes,seconds,ms:mili,msTrimmed:mili ? mili % 100 : '00'};
 }
 
+export function timeToMs(timeObj){
+  const totalMsFromHour = (timeObj.hours || 0) * 3600 * 1000;  
+  const totalMsFromMinutes = (timeObj.minutes || 0) * 60 * 1000;
+  const totalMsFromSeconds = (timeObj.seconds || 0) * 1000;
+  const totalMs =  totalMsFromHour + totalMsFromMinutes + totalMsFromSeconds + (timeObj.ms || 0);
+  return totalMs;
+}
+
 export function timeToString(timeObj){
-    const addZero = (time)=>{
-        if(!time)return null;
-        const newTime = time.toString();
-        return newTime.split('').length > 1 ? newTime : '0' + newTime;
-    }
+      const addZero = (time)=>{
+          if(!time)return null;
+          const newTime = time.toString();
+          return newTime.split('').length > 1 ? newTime : '0' + newTime;
+      }
 
-    const hours = addZero(timeObj.hours) || '00';
-    const minute = addZero(timeObj.minutes) || '00';
-    const seconds =  addZero(timeObj.seconds) || '00';
+      const hours = addZero(timeObj.hours) || '00';
+      const minute = addZero(timeObj.minutes) || '00';
+      const seconds =  addZero(timeObj.seconds) || '00';
 
-    const string = `${hours+ ':'}${minute + ':'}${seconds + '.'}${Math.floor(timeObj.ms / 100) || '0'}`;
-      console.log(timeObj,string);
-    return string;
+      const string = `${hours+ ':'}${minute + ':'}${seconds + '.'}${Math.floor(timeObj.ms / 100) || '0'}`;
+        console.log(timeObj,string);
+      return string;
 }
