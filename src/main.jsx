@@ -5,6 +5,7 @@ import App from './App'
 import Timer from './components/Timer'
 import './index.css'
 import Stopwatch from './components/Stopwatch'
+import Timezone from './components/Timezone'
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,8 @@ const router = createBrowserRouter([
         element:<Timer/>
       },
       {
-        path:'world'
+        path:'world',
+        element:<Timezone/>
       }
     ]
   },
