@@ -66,6 +66,7 @@ export default function useTimer(){
         if(result <= 0){
           resetTimer();
           console.log('finished',interval);
+          alert('Timer is finished!');
           // clearInterval(interval.current);
           return;
         }
