@@ -13,4 +13,4 @@ const DigitalTime = styled.p`
   }
 `
 
-export default DigitalTime;
+export default DigitalTime; 
