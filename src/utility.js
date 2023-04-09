@@ -9,6 +9,10 @@ export function secondToTime(time){
     // if(seconds === 0) seconds = "00";
     return {hours,minutes,seconds};
 }
+
+export function dateToTime(date){
+  return{hours:date.getHours(),minutes:date.getMinutes(),seconds:date.getSeconds(),ms:date.getMilliseconds(),msTrimmed:date.getMilliseconds() ? date.getMilliseconds() % 100 : '00'};
+}
   
 export function msToTime(ms){
     if(ms === 0) return {hours:0,minutes:0,seconds:0};

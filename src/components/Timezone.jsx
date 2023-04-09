@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react"
-
+import DigitalTime from "./DigitalTimer";
+import { dateToTime } from "../utility";
+import LocationSearch from "./LocationSearch";
 export default function Timezone() {
-
+           
     const [currentLocation,setCurrentLocation] = useState();
     useEffect(()=>{
         navigator.geolocation.getCurrentPosition((pos)=>{
             setCurrentLocation(pos);
         });
-    
     },[]);
     const today = new Date();
   return (
@@ -17,14 +18,18 @@ export default function Timezone() {
             <div>
                 <h2>Current Location:</h2>
                 <p>Your time:</p>
-                <p>{today.getTime()}</p>
-                <p>Location:</p>
+                <p>{today.getTime()+ " and " + today.toLocaleString()}</p>
+                <h2>Location:</h2>
                 <p>Lat:{currentLocation.coords.latitude}</p>
                 <p>Long:{currentLocation.coords.longitude}</p>
-                <p>Time Based On Longitude</p>
-                <p>{getLongitudeTime(currentLocation.coords.longitude)}</p>
+                {/* <p>Time Based On Longitude</p> */}
+                {/* <DigitalTime/> */}
+                {/* <p>{getLongitudeTime(currentLocation.coords.longitude).toString()}</p> */}
+                <LocationSearch></LocationSearch>
             </div>
         )}
+        
+
     </div>
   )
 }
@@ -32,14 +37,14 @@ export default function Timezone() {
 
 function getLongitudeTime(long){
     const hourDelay = long / 15;
-    const minuteDelay = (hourDelay - Math.floor(hourDelay)) * 60;
-    const secondDelay = (minuteDelay - Math.floor(minuteDelay)) * 60;
+    const minuteDelay = hourDelay * 60;
+    const secondDelay = minuteDelay * 60;
 
 
     // Convert to miliseconds
-    const miliHour = Math.floor(hourDelay) * 60 * 60 * 1000; 
-    const miliMinute = Math.floor(minuteDelay) * 60 * 1000;
-    const miliSecond = Math.floor(secondDelay) * 1000;
+    const miliHour = Math.floor(hourDelay) * 60 * 60 ; 
+    const miliMinute = Math.floor(minuteDelay) * 60 ;
+    const miliSecond = Math.floor(secondDelay);
 
 
     const miliDelay = miliHour + miliMinute + miliSecond;
@@ -47,6 +52,6 @@ function getLongitudeTime(long){
     
     const dateNow = new Date();
     const dateLong = new Date(dateNow.getTime() + miliDelay);
-    return  dateLong.getTime();
+    return dateLong;
 
 }
