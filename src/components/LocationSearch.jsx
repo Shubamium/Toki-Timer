@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRef, useState } from "react"
 import moment from "moment-timezone";
-export default function LocationSearch() {
+export default function LocationSearch({addLocation}) {
 
 
     const searchQuery = useRef();
@@ -69,6 +69,9 @@ export default function LocationSearch() {
         setSearchResult(result);
     }
 
+    function handleAdd(place){
+        addLocation(place);
+    }
     function renderSearchResult(searchResult){
         return searchResult.map((placeObj,index)=>{
                 return (
@@ -79,9 +82,12 @@ export default function LocationSearch() {
                         <div className="timezone">
                             
                             <h3>Timezone</h3>
-                            <p>{placeObj.timezone.moment.format('hh:mm:ss DD-MM-YYYY ')}</p>
+                            <p>{placeObj.timezone.moment.format('h:m A || D MMMM YYYY ')}</p>
                             <p>{placeObj.timezone.name}</p>
                             <p>UTC{placeObj.timezone.offset_string}</p>
+                        </div>
+                        <div className="action">
+                            <button onClick={()=>{handleAdd(placeObj)}}>Add</button>
                         </div>
                     </div>
                 )

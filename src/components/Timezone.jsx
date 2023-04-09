@@ -1,16 +1,32 @@
 import { useEffect, useState } from "react"
 import DigitalTime from "./DigitalTimer";
 import { dateToTime } from "../utility";
+
+import _ from "lodash";
 import LocationSearch from "./LocationSearch";
 export default function Timezone() {
            
     const [currentLocation,setCurrentLocation] = useState();
+    const [savedLocation,setSavedLocation] = useState([]);
     useEffect(()=>{
         navigator.geolocation.getCurrentPosition((pos)=>{
             setCurrentLocation(pos);
         });
     },[]);
     const today = new Date();
+
+
+    function handleAddLocation(place){
+        const hasBeenAddedBefore = savedLocation.find((val)=> _.isEqual(val.coord,place.coord));
+
+        // If there is no place in the list that has the same exact coordinates
+        if(!hasBeenAddedBefore){
+            setSavedLocation(prev=>{
+                return [...prev,place];
+            })
+            console.log('added',place);
+        }
+    }
   return (
     <div>
         Timezone
@@ -25,9 +41,10 @@ export default function Timezone() {
                 {/* <p>Time Based On Longitude</p> */}
                 {/* <DigitalTime/> */}
                 {/* <p>{getLongitudeTime(currentLocation.coords.longitude).toString()}</p> */}
-                <LocationSearch></LocationSearch>
+                
             </div>
         )}
+        <LocationSearch addLocation={handleAddLocation}></LocationSearch>
         
 
     </div>
