@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRef, useState } from "react"
-
+import moment from "moment-timezone";
 export default function LocationSearch() {
 
 
@@ -15,6 +15,7 @@ export default function LocationSearch() {
         e.preventDefault();
         const query = searchQuery.current.value;
         const apiKey = 'e1f5483fcad8a99f2f94b4739460b29f';
+        setSearchResult([]);
         if( query === "") return;
         console.log(query);
         
@@ -54,7 +55,8 @@ export default function LocationSearch() {
                     region:place.region
                 },
                 timezone:{
-                    ...place.timezone_module
+                    ...place.timezone_module,
+                    moment:moment.tz(place.timezone_module.name)
                 }
 
             }
@@ -67,15 +69,17 @@ export default function LocationSearch() {
         setSearchResult(result);
     }
 
-    function renderSearchResult(){
-        return searchResult.map((placeObj)=>{
+    function renderSearchResult(searchResult){
+        return searchResult.map((placeObj,index)=>{
                 return (
-                    <div className="location-res" key={placeObj.name}>
+                    <div className="location-res" key={index}>
                         <br />
                         <h2>{placeObj.name}</h2>
-                        <p>{placeObj.coord.lat} - {placeObj.coord.long} </p>
+                        <p>{placeObj.coord.lat} || {placeObj.coord.long} </p>
                         <div className="timezone">
+                            
                             <h3>Timezone</h3>
+                            <p>{placeObj.timezone.moment.format('hh:mm:ss DD-MM-YYYY ')}</p>
                             <p>{placeObj.timezone.name}</p>
                             <p>UTC{placeObj.timezone.offset_string}</p>
                         </div>
@@ -87,12 +91,12 @@ export default function LocationSearch() {
         <div>
             <h2>Location Search</h2>
             <form onSubmit={searchLocation}>
-                <input type="search" ref={searchQuery} placeholder="Search a location!" />
+                <input type="search" ref={searchQuery} onChange={(e)=>{if(e.target.value === "")setSearchResult([]);}} placeholder="Search a location!" />
                 <button type="submit">Search</button>
             </form>
 
             <div>
-                {searchResult && renderSearchResult()}
+                {searchResult && renderSearchResult(searchResult)}
             </div>
         </div>
     )
