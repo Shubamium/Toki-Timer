@@ -37,8 +37,12 @@ function Location({place}){
     return(
         <div>
             {initStatus && <DigitalTime>{lmoment.format('h:mm:ss A')}</DigitalTime>}
+            
             <h2>{place.name}</h2>
-            <p>{place.timezone.name}</p>
+            <div style={{display:'flex',gap:'2em'}}>
+                <p>UTC{place.timezone.offset_string}</p>
+                <p>{place.timezone.name}</p>
+            </div>
         </div>
     )
 }
