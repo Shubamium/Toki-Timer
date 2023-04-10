@@ -14,7 +14,7 @@ export default function Timer() {
   function renderTimer(){
     const timeObj = msToTime(elapsed);
     return (
-      <DigitalTime>{timeToString(timeObj)}<span className="ms">{timeObj.msTrimmed}</span></DigitalTime>
+      <DigitalTime color={timeToMs(timeObj) === 0 ? 'red' : 'black'} >{timeToString(timeObj)}<span className="ms">{timeObj.msTrimmed}</span></DigitalTime>
     );
   }
   useEffect(()=>{

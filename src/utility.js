@@ -47,6 +47,5 @@ export function timeToString(timeObj){
       const seconds =  addZero(timeObj.seconds) || '00';
 
       const string = `${hours+ ':'}${minute + ':'}${seconds + '.'}${Math.floor(timeObj.ms / 100) || '0'}`;
-        console.log(timeObj,string);
       return string;
 }

@@ -4,6 +4,7 @@ import { dateToTime } from "../utility";
 
 import _ from "lodash";
 import LocationSearch from "./LocationSearch";
+import LocationList from "./LocationList";
 export default function Timezone() {
            
     const [currentLocation,setCurrentLocation] = useState();
@@ -44,6 +45,7 @@ export default function Timezone() {
                 
             </div>
         )}
+        <LocationList list={savedLocation}/>
         <LocationSearch addLocation={handleAddLocation}></LocationSearch>
         
 
