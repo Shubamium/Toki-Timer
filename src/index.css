@@ -4,8 +4,17 @@
 :root{
     --mainFont: 'Roboto Mono',sans-serif;
     --secondFont: 'Kanit',sans-serif;
+    --black: #534e4f;
 }
 
 body{
     font-family: var(--secondFont);
+    background-color: #FDF4F5;
+    color:var(--black);
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }

@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 const DigitalTime = styled.p`
 
-  color: ${props=> props.color || '#000000'};
+  color: ${props=> props.color || '#9466a1'};
   font-weight: bold;
   font-family: var(--mainFont);
   font-size: 2rem;
