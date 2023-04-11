@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import './App.css'
 import styled from 'styled-components'
+import StyledButton from './components/StyledButton'
 
 
 // Main Styling
@@ -36,7 +37,49 @@ const StyledHeader = styled.header`
 const StyledNav = styled.nav`
   position: absolute;
   bottom: 5%;
-  background-color: red;
+  display: flex;
+  gap: 1em;
+
+  
+  & a.active button{
+    background-color: #E8A0BF;
+    color: white;
+  }
+  & a button{
+    background-color : transparent;
+    border: 2px solid #BA90C6;
+    color: #BA90C6;
+  }
+
+  & a:hover button{
+    /* --bgColor: #E8A0BF; */
+    animation: buttonHover 500ms forwards;
+    color: white;
+    font-weight:bold;
+    box-shadow: 4px 4px 6px  #50445033;
+  }
+
+  @keyframes buttonHover {
+      from{
+        background: linear-gradient(50deg, #E8A0BF 0%, #E8A0BF 10%, transparent 11%);
+        background-position: -100% -100%;
+        background-origin: center;
+        background-repeat: no-repeat;
+        color: #E8A0BF;
+      }
+      50%{
+        background-position: 1000% 1000%;
+        background-repeat: no-repeat;
+        background: linear-gradient(50deg, #E8A0BF 0%, #E8A0BF 50%, transparent 51%);
+        color: #7854a2;
+      }
+      to{
+        background-position: 1000% 1000%;
+        background-repeat: no-repeat;
+        background: linear-gradient(50deg, #E8A0BF 0%, #E8A0BF 99%, transparent 100%);
+        color: white;
+      }
+  }
 `
 function App() {
 
@@ -63,6 +106,7 @@ function App() {
       }
     }
   }
+
   return (
     <StyledApp className="App">
         <StyledHeader>
@@ -79,13 +123,13 @@ function App() {
         </div>
         <StyledNav className='navigation'>
               <NavLink to={'/'}>
-                  <button>Stopwatch</button>
+                  <StyledButton >Stopwatch</StyledButton>
               </NavLink>
               <NavLink to={'/timer'}>
-                 <button>Timer</button>
+                 <StyledButton >Timer</StyledButton>
               </NavLink>
               <NavLink to={'/world'}>
-                 <button>World Time</button>
+                 <StyledButton>World Time</StyledButton>
               </NavLink>
         </StyledNav>
     </StyledApp>
