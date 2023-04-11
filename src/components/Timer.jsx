@@ -3,7 +3,21 @@ import { msToTime, timeToMs, timeToString } from "../utility";
 import DigitalTime from "./DigitalTimer";
 import useTimer from "./hooks/useTimer"
 import { useRef } from "react";
+import styled from "styled-components";
+import StyledButton from "./StyledButton";
 
+
+const StyledTimer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  & .title{
+    font-size: 2.5rem;
+    color: var(--black);
+    line-height:  60%;
+  }
+`
 export default function Timer() {
   const {elapsed, setTimer, startCountdown,isPaused,pauseTimer, resetTimer} = useTimer();
   
@@ -45,20 +59,20 @@ export default function Timer() {
     setTimer(val);
   }
   return (
-    <div>
-      <h2 className="header">Timer</h2>
+    <StyledTimer>
+      <h2 className="title">Timer</h2>
       <div className="timer">
           { renderTimer()}
       </div>
       <div className="action">
           {isPaused ? 
           (
-            <button onClick={startCountdown}>Start</button>
+            <StyledButton onClick={startCountdown}>Start</StyledButton>
           )
           : (
-            <button onClick={pauseTimer}>Pause</button>
+            <StyledButton onClick={pauseTimer}>Pause</StyledButton>
           )}
-          <button onClick={resetTimer}>Reset</button>
+          <StyledButton bgColor={'#a6cfe5'} onClick={resetTimer}>Reset</StyledButton>
       </div>
       <br />
       <form onSubmit={setTimerAmount}>
@@ -73,6 +87,6 @@ export default function Timer() {
           <input type="number" placeholder={'Seconds'} min={0} max={360000} ref={secondRef}/>
           <button type="submit">Set Time</button>
       </form>
-    </div>
+    </StyledTimer>
   )
 }
