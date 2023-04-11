@@ -14,7 +14,7 @@ export default function Timer() {
   function renderTimer(){
     const timeObj = msToTime(elapsed);
     return (
-      <DigitalTime color={timeToMs(timeObj) === 0 ? '#E8A0BF' : 'var(--black)'} >{timeToString(timeObj)}<span className="ms">{timeObj.msTrimmed}</span></DigitalTime>
+      <DigitalTime size={'4rem'} color={timeToMs(timeObj) === 0 ? '#E8A0BF' : 'var(--black)'} >{timeToString(timeObj)}<span className="ms">{timeObj.msTrimmed}</span></DigitalTime>
     );
   }
   useEffect(()=>{
@@ -46,17 +46,20 @@ export default function Timer() {
   }
   return (
     <div>
-      <h2>Timer</h2>
-      { renderTimer()}
-      {isPaused ? 
-      (
-        <button onClick={startCountdown}>Start</button>
-      )
-      : (
-        <button onClick={pauseTimer}>Pause</button>
-      )}
-      <button onClick={resetTimer}>Reset</button>
-
+      <h2 className="header">Timer</h2>
+      <div className="timer">
+          { renderTimer()}
+      </div>
+      <div className="action">
+          {isPaused ? 
+          (
+            <button onClick={startCountdown}>Start</button>
+          )
+          : (
+            <button onClick={pauseTimer}>Pause</button>
+          )}
+          <button onClick={resetTimer}>Reset</button>
+      </div>
       <br />
       <form onSubmit={setTimerAmount}>
           <input type="number" min={0} max={360000} placeholder="miliseconds" ref={timerAmount}/>

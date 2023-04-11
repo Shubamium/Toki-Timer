@@ -53,7 +53,7 @@ const StyledNav = styled.nav`
 
   & a:hover button{
     /* --bgColor: #E8A0BF; */
-    animation: buttonHover 500ms forwards;
+    animation: buttonHover 400ms forwards;
     color: white;
     font-weight:bold;
     box-shadow: 4px 4px 6px  #50445033;
@@ -67,10 +67,22 @@ const StyledNav = styled.nav`
         background-repeat: no-repeat;
         color: #E8A0BF;
       }
+      25%{
+        background-position: 1000% 1000%;
+        background-repeat: no-repeat;
+        background: linear-gradient(50deg, #E8A0BF 0%, #E8A0BF 25%, transparent 27%);
+        color: #7854a2;
+      }
       50%{
         background-position: 1000% 1000%;
         background-repeat: no-repeat;
         background: linear-gradient(50deg, #E8A0BF 0%, #E8A0BF 50%, transparent 51%);
+        color: #7854a2;
+      }
+      75%{
+        background-position: 1000% 1000%;
+        background-repeat: no-repeat;
+        background: linear-gradient(50deg, #E8A0BF 0%, #E8A0BF 75%, transparent 76%);
         color: #7854a2;
       }
       to{
@@ -130,6 +142,9 @@ function App() {
               </NavLink>
               <NavLink to={'/world'}>
                  <StyledButton>World Time</StyledButton>
+              </NavLink>
+              <NavLink to={'/compare         '}>
+                 <StyledButton>Time Compare</StyledButton>
               </NavLink>
         </StyledNav>
     </StyledApp>
