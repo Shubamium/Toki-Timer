@@ -19,19 +19,42 @@ const StyledApp = styled.div`
   }
   & .left .detail{
     font-weight: lighter;
+    background-color: #c4e3fd93;
+    padding: .2em .4em;
+    margin-top: .6em;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  & .left .detail:hover{
+    scale: 1.04;
   }
 ` 
 
 // Header
 const StyledHeader = styled.header`
   display: flex;
-  background-color: #c0dbea1f;
+  background-color: #c0dbea11;
   justify-content: space-between;
   align-items: center;
   padding: 1em;
   position:absolute;
   top:5%;
   width: min(80vw,1700px);
+
+
+  & .left .logo {
+      color: white;
+      background-color: #fd79d569;
+      padding: .1em .6em;
+      box-shadow:0px 4px #a7c2f12f;
+  }
+
+  & .left .title{
+    font-weight:normal;
+    color: #857584;
+    margin: 0 .5em;
+  }
 `
 
 const StyledNav = styled.nav`
@@ -123,8 +146,8 @@ function App() {
     <StyledApp className="App">
         <StyledHeader>
              <div className="left">
-                 <h1 className='title'><span className='logo'>トキ</span> Timer App</h1> 
-                 <p className='detail'>Website By <b>Shubamium</b></p>
+                 <h1 className='title'><span className='logo'>トキ</span>   toki timer app</h1> 
+                 <p className='detail' onClick={()=>{window.open('https://github.com/Shubamium')}}>website by <b>Shubamium</b></p>
              </div>
              <div className="right">
                   <button onClick={requestFullScreen}>Fullscreen</button>
