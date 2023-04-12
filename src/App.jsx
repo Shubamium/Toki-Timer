@@ -2,7 +2,8 @@ import { NavLink, Outlet } from 'react-router-dom'
 import './App.css'
 import styled from 'styled-components'
 import StyledButton from './components/StyledButton'
-
+import { MdOutlineFullscreen, MdOutlineFullscreenExit } from 'react-icons/md'
+import { useState } from 'react'
 
 // Main Styling
 const StyledApp = styled.div`
@@ -118,6 +119,7 @@ const StyledNav = styled.nav`
 `
 function App() {
 
+  const [isFullscreen, setIsFullscreen] = useState(false);
   function requestFullScreen() {
 
     const elem = document.documentElement;
@@ -131,15 +133,17 @@ function App() {
         } else if (document.msExitFullscreen) {
           document.msExitFullscreen(); // IE/Edge
         }
-    }else{
-      if (elem.requestFullscreen) { 
-        elem.requestFullscreen();
-      } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) { /* IE11 */
-        elem.msRequestFullscreen();
+        setIsFullscreen(false);
+      }else{
+        if (elem.requestFullscreen) { 
+          elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+          elem.msRequestFullscreen();
+        }
+       setIsFullscreen(true);
       }
-    }
   }
 
   return (
@@ -150,7 +154,7 @@ function App() {
                  <p className='detail' onClick={()=>{window.open('https://github.com/Shubamium')}}>website by <b>Shubamium</b></p>
              </div>
              <div className="right">
-                  <button onClick={requestFullScreen}>Fullscreen</button>
+                  <StyledButton size={'1.3rem'} bgColor='#BA90C6' onClick={requestFullScreen}>{!isFullscreen ? <MdOutlineFullscreen alignmentBaseline='baseline'></MdOutlineFullscreen> : <MdOutlineFullscreenExit alignmentBaseline='baseline'></MdOutlineFullscreenExit>}</StyledButton>
              </div>
         </StyledHeader>
         <div className='content'>

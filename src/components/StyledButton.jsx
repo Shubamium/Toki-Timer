@@ -6,11 +6,15 @@ const StyledButton = styled.button`
     font-family: var(--secondFont);
     border: ${props => props.bgColor === 'none' ? '2px solid pink' : 'none'};
     padding:.2em .5em;
-    font-size: 1.2rem;
+    font-size: ${props => props.size || '1.2rem'};
     cursor: pointer;
     border-radius: .21em;
 
     box-shadow: 2px 2px 6px  #50445033;
+    & svg{
+        scale: 1.5;
+        margin-top:.3em;
+    }
     &:hover{
         scale: 1.05;
     }
