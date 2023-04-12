@@ -16,6 +16,13 @@ const StyledTimer = styled.div`
     font-size: 2.5rem;
     color: var(--black);
     line-height:  60%;
+    font-weight: no;
+    opacity: .8;
+  }
+
+  & .action{
+    display: flex;
+    gap:1em;
   }
 `
 export default function Timer() {
@@ -28,7 +35,7 @@ export default function Timer() {
   function renderTimer(){
     const timeObj = msToTime(elapsed);
     return (
-      <DigitalTime size={'4rem'} color={timeToMs(timeObj) === 0 ? '#E8A0BF' : 'var(--black)'} >{timeToString(timeObj)}<span className="ms">{timeObj.msTrimmed}</span></DigitalTime>
+      <DigitalTime size={'5.5rem'} color={timeToMs(timeObj) === 0 ? '#E8A0BF' : '#533d8a9e'} >{timeToString(timeObj)}<span className="ms">{timeObj.msTrimmed}</span></DigitalTime>
     );
   }
   useEffect(()=>{
@@ -72,21 +79,23 @@ export default function Timer() {
           : (
             <StyledButton onClick={pauseTimer}>Pause</StyledButton>
           )}
+          <StyledButton bgColor={'#BA90C6'} onClick={resetTimer}>Set Time</StyledButton>
           <StyledButton bgColor={'#a6cfe5'} onClick={resetTimer}>Reset</StyledButton>
       </div>
-      <br />
-      <form onSubmit={setTimerAmount}>
-          <input type="number" min={0} max={360000} placeholder="miliseconds" ref={timerAmount}/>
-          <button type="submit">Set Time</button>
-      </form>
-      <br />
-
-      <form onSubmit={setTimerSpecific}>
-          <input type="number" placeholder={'Hours'} min={0} max={360000} ref={hoursRef}/>
-          <input type="number" placeholder={'Minutes'} min={0} max={360000} ref={minuteRef}/>
-          <input type="number" placeholder={'Seconds'} min={0} max={360000} ref={secondRef}/>
-          <button type="submit">Set Time</button>
-      </form>
+      <div className="controls">
+        <br />
+        <form onSubmit={setTimerAmount}>
+            <input type="number" min={0} max={360000} placeholder="miliseconds" ref={timerAmount}/>
+            <button type="submit">Set Time</button>
+        </form>
+        <br />
+        <form onSubmit={setTimerSpecific}>
+            <input type="number" placeholder={'Hours'} min={0} max={360000} ref={hoursRef}/>
+            <input type="number" placeholder={'Minutes'} min={0} max={360000} ref={minuteRef}/>
+            <input type="number" placeholder={'Seconds'} min={0} max={360000} ref={secondRef}/>
+            <button type="submit">Set Time</button>
+        </form>
+      </div>
     </StyledTimer>
   )
 }
