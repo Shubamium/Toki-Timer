@@ -4,7 +4,8 @@ import styled from 'styled-components'
 import StyledButton from './components/StyledButton'
 import { MdOutlineFullscreen, MdOutlineFullscreenExit } from 'react-icons/md'
 import { useState } from 'react'
-
+import {TbTriangleFilled, TbTriangleInvertedFilled} from 'react-icons/tb'
+import {FaGithub} from 'react-icons/fa'
 // Main Styling
 const StyledApp = styled.div`
   display: flex;
@@ -44,6 +45,12 @@ const StyledHeader = styled.header`
   width: min(80vw,1700px);
 
 
+  & .left{
+    visibility:${props=> props.isHidden ? 'hidden' : ''};
+  }
+  & .affect-hidden{
+    visibility:${props=> props.isHidden ? 'hidden' : ''};
+  }
   & .left .logo {
       color: white;
       background-color: #fd79d569;
@@ -56,6 +63,11 @@ const StyledHeader = styled.header`
     color: #857584;
     margin: 0 .5em;
   }
+
+  & .right{
+    display: flex;
+    gap: .31em;
+  }
 `
 
 const StyledNav = styled.nav`
@@ -63,7 +75,7 @@ const StyledNav = styled.nav`
   bottom: 5%;
   display: flex;
   gap: 1em;
-
+  visibility:${props=> props.isHidden ? 'hidden' : ''};
   
   & a.active button{
     background-color: #E8A0BF;
@@ -120,6 +132,7 @@ const StyledNav = styled.nav`
 function App() {
 
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isUIHidden, setIsHidden] = useState(false);
   function requestFullScreen() {
 
     const elem = document.documentElement;
@@ -146,21 +159,28 @@ function App() {
       }
   }
 
+  function toggleUI(){
+    setIsHidden(prev=>!prev);
+  }
   return (
     <StyledApp className="App">
-        <StyledHeader>
+        <StyledHeader isHidden={isUIHidden}>
              <div className="left">
                  <h1 className='title'><span className='logo'>トキ</span>   toki timer app</h1> 
                  <p className='detail' onClick={()=>{window.open('https://github.com/Shubamium')}}>website by <b>Shubamium</b></p>
              </div>
              <div className="right">
-                  <StyledButton size={'1.3rem'} bgColor='#BA90C6' onClick={requestFullScreen}>{!isFullscreen ? <MdOutlineFullscreen alignmentBaseline='baseline'></MdOutlineFullscreen> : <MdOutlineFullscreenExit alignmentBaseline='baseline'></MdOutlineFullscreenExit>}</StyledButton>
+                  <StyledButton className='affect-hidden' size={'1.3rem'} bgColor='#BA90C6' onClick={()=>{window.open('https://github.com/Shubamium','_blank')}}>
+                      <FaGithub/> 
+                  </StyledButton>
+                  <StyledButton className='affect-hidden' size={'1.3rem'} bgColor='#BA90C6' onClick={requestFullScreen}>{!isFullscreen ? <MdOutlineFullscreen alignmentBaseline='baseline'></MdOutlineFullscreen> : <MdOutlineFullscreenExit alignmentBaseline='baseline'></MdOutlineFullscreenExit>}</StyledButton>
+                  <StyledButton size={isUIHidden ? '.9rem' : '1.3rem'} bgColor='#BA90C6' onClick={toggleUI}>{!isUIHidden ? <TbTriangleInvertedFilled alignmentBaseline='baseline'/> : <TbTriangleFilled alignmentBaseline='baseline'/>}</StyledButton>
              </div>
         </StyledHeader>
         <div className='content'>
           <Outlet></Outlet>
         </div>
-        <StyledNav className='navigation'>
+        <StyledNav className='navigation' isHidden={isUIHidden}>
               <NavLink to={'/'}>
                   <StyledButton >Stopwatch</StyledButton>
               </NavLink>

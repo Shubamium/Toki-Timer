@@ -5,7 +5,9 @@ import useTimer from "./hooks/useTimer"
 import { useRef } from "react";
 import styled from "styled-components";
 import StyledButton from "./StyledButton";
-
+import ReactModal from "react-modal";
+import { useState } from "react";
+// import { FaCrossMark} from 'react-icons/fa'
 
 const StyledTimer = styled.div`
   display: flex;
@@ -25,9 +27,29 @@ const StyledTimer = styled.div`
     gap:1em;
   }
 `
+
+const StyledModal = styled(ReactModal)`
+      max-width: 80%;
+      max-height: 80%;
+      position: absolute;
+      top: 50%;
+      left:50%;
+`
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
+
 export default function Timer() {
   const {elapsed, setTimer, startCountdown,isPaused,pauseTimer, resetTimer} = useTimer();
-  
+  const [modalOpen, setModalOpen] = useState(false);
   const timerAmount = useRef();
   const hoursRef = useRef();
   const minuteRef = useRef();
@@ -64,6 +86,7 @@ export default function Timer() {
     val = timeToMs(val);
     console.log(val);
     setTimer(val);
+    setModalOpen(false);
   }
   return (
     <StyledTimer>
@@ -79,23 +102,27 @@ export default function Timer() {
           : (
             <StyledButton onClick={pauseTimer}>Pause</StyledButton>
           )}
-          <StyledButton bgColor={'#BA90C6'} onClick={resetTimer}>Set Time</StyledButton>
+          <StyledButton bgColor={'#BA90C6'} onClick={()=>{setModalOpen(true)}}>Set Time</StyledButton>
           <StyledButton bgColor={'#a6cfe5'} onClick={resetTimer}>Reset</StyledButton>
       </div>
-      <div className="controls">
-        <br />
-        <form onSubmit={setTimerAmount}>
-            <input type="number" min={0} max={360000} placeholder="miliseconds" ref={timerAmount}/>
-            <button type="submit">Set Time</button>
-        </form>
-        <br />
-        <form onSubmit={setTimerSpecific}>
-            <input type="number" placeholder={'Hours'} min={0} max={360000} ref={hoursRef}/>
-            <input type="number" placeholder={'Minutes'} min={0} max={360000} ref={minuteRef}/>
-            <input type="number" placeholder={'Seconds'} min={0} max={360000} ref={secondRef}/>
-            <button type="submit">Set Time</button>
-        </form>
-      </div>
+
+      <ReactModal style={customStyles} isOpen={modalOpen}>
+        <button onClick={()=>{setModalOpen(false)}}>Close</button>
+        <div className="controls">
+          <br />
+          <form onSubmit={setTimerAmount}>
+              <input type="number" min={0} max={360000} placeholder="miliseconds" ref={timerAmount}/>
+              <button type="submit">Set Time</button>
+          </form>
+          <br />
+          <form onSubmit={setTimerSpecific}>
+              <input type="number" placeholder={'Hours'} min={0} max={360000} ref={hoursRef}/>
+              <input type="number" placeholder={'Minutes'} min={0} max={360000} ref={minuteRef}/>
+              <input type="number" placeholder={'Seconds'} min={0} max={360000} ref={secondRef}/>
+              <button type="submit">Set Time</button>
+          </form>
+        </div>
+      </ReactModal>
     </StyledTimer>
   )
 }
