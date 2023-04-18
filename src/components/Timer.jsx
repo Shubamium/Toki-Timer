@@ -55,6 +55,31 @@ const ModalStyling = styled.div`
     padding: 0;
 
   }
+
+  & .control-switcher h3{
+    font-size: 1rem;
+    color: #857584;
+    font-weight: normal;
+  }
+
+  & .control-switcher{
+    padding-bottom: 2.5em;
+  }
+  & .control-switcher select{
+      padding: .5em;
+      width: 100%;
+      /* margin: .4em 0; */
+      background-color: #ffffffdb;
+      border: none;
+      border-bottom:2px solid #C0DBEA;
+      outline: none;
+      transition: all 250ms ease;
+      color: #857584;
+      border-radius: 5px;
+      font-size: 1rem;
+      box-shadow: 0px 0px 4px #8575842b;
+
+  }
 `
 const customStyles = {
   content: {
@@ -127,16 +152,31 @@ export default function Timer() {
   const metricSetterForms = {
     time:
       <StyledModalForm onSubmit={setTimerSpecific}>
-        <input type="number" placeholder={'Hours'} min={0} max={360000} ref={hoursRef}/>
-        <input type="number" placeholder={'Minutes'} min={0} max={360000} ref={minuteRef}/>
-        <input type="number" placeholder={'Seconds'} min={0} max={360000} ref={secondRef}/>
-        <button type="submit">Set Time</button>
+        <div className="stack">
+          <div>
+            <p>Hours</p>
+            <input type="number" placeholder={'Hours'} min={0} max={99} maxLength="3" ref={hoursRef}/>
+          </div>
+          <div>
+            <p>Minutes</p>
+            <input type="number" placeholder={'Minutes'} min={0} max={36000} maxLength="3" ref={minuteRef}/>
+          </div>
+          <div>
+            <p>Seconds</p>
+            <input type="number" placeholder={'Seconds'} min={0} max={360000} maxLength="3" ref={secondRef}/>
+          </div>
+        </div>
+        <div className="stack">
+          <StyledButton style={{marginBlock:'.4em'}} type="submit">Apply</StyledButton>
+        </div>
       </StyledModalForm>
     ,
     milliseconds:(
       <StyledModalForm onSubmit={setTimerAmount}>
         <input type="number" min={0} max={360000} placeholder="miliseconds" ref={timerAmount}/>
-        <button type="submit">Set Time</button>
+        <div className="stack">
+            <StyledButton style={{marginBlock:'.4em'}} type="submit">Apply</StyledButton>
+        </div>
       </StyledModalForm>
     )
   }
