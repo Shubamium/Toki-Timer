@@ -7,7 +7,8 @@ import styled from "styled-components";
 import StyledButton from "./StyledButton";
 import ReactModal from "react-modal";
 import { useState } from "react";
-// import { FaCrossMark} from 'react-icons/fa'
+import { AiFillCloseSquare} from 'react-icons/ai'
+import { CgTimelapse} from 'react-icons/cg'
 
 const StyledTimer = styled.div`
   display: flex;
@@ -35,7 +36,25 @@ const StyledModal = styled(ReactModal)`
       top: 50%;
       left:50%;
 `
+const ModalStyling = styled.div`
+  & .header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #857584;
+  }
+  & .header .close-btn{
+    font-size: 2rem;
+    background:none;
+    border: none;
+    color: #BA90C6;
+    box-shadow: none;
+    margin: 0%;
+    padding: 0;
 
+  }
+`
 const customStyles = {
   content: {
     top: '50%',
@@ -43,8 +62,17 @@ const customStyles = {
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
+    backgroundColor:'#FDF4F5',
     transform: 'translate(-50%, -50%)',
+    opacity:'1',
+    border:'2px white',
+    padding:'4em 2em',
+    paddingTop:'1em',
+    boxShadow:'1px 2px 2px  #8c858541'
   },
+  overlay:{
+    opacity:'1'
+  }
 };
 
 export default function Timer() {
@@ -107,21 +135,26 @@ export default function Timer() {
       </div>
 
       <ReactModal style={customStyles} isOpen={modalOpen}>
-        <button onClick={()=>{setModalOpen(false)}}>Close</button>
-        <div className="controls">
-          <br />
-          <form onSubmit={setTimerAmount}>
-              <input type="number" min={0} max={360000} placeholder="miliseconds" ref={timerAmount}/>
-              <button type="submit">Set Time</button>
-          </form>
-          <br />
-          <form onSubmit={setTimerSpecific}>
-              <input type="number" placeholder={'Hours'} min={0} max={360000} ref={hoursRef}/>
-              <input type="number" placeholder={'Minutes'} min={0} max={360000} ref={minuteRef}/>
-              <input type="number" placeholder={'Seconds'} min={0} max={360000} ref={secondRef}/>
-              <button type="submit">Set Time</button>
-          </form>
-        </div>
+            <ModalStyling>
+              <div className="header">
+                  <h2><CgTimelapse style={{position:'relative',top:'4px'}}/> Set Time</h2>  
+                  <StyledButton onClick={()=>{setModalOpen(false)}} className="close-btn"><AiFillCloseSquare /></StyledButton>
+              </div>
+              <div className="controls">
+                <br />
+                <form onSubmit={setTimerAmount}>
+                    <input type="number" min={0} max={360000} placeholder="miliseconds" ref={timerAmount}/>
+                    <button type="submit">Set Time</button>
+                </form>
+                <br />
+                <form onSubmit={setTimerSpecific}>
+                    <input type="number" placeholder={'Hours'} min={0} max={360000} ref={hoursRef}/>
+                    <input type="number" placeholder={'Minutes'} min={0} max={360000} ref={minuteRef}/>
+                    <input type="number" placeholder={'Seconds'} min={0} max={360000} ref={secondRef}/>
+                    <button type="submit">Set Time</button>
+                </form>
+              </div>
+            </ModalStyling>
       </ReactModal>
     </StyledTimer>
   )
