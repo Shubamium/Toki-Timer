@@ -9,6 +9,7 @@ import ReactModal from "react-modal";
 import { useState } from "react";
 import { AiFillCloseSquare} from 'react-icons/ai'
 import { CgTimelapse} from 'react-icons/cg'
+import StyledModalForm from "./StyledModalForm";
 
 const StyledTimer = styled.div`
   display: flex;
@@ -75,6 +76,9 @@ const customStyles = {
   }
 };
 
+
+// Dropdown choose over what type of time
+// Show which form depending on that
 export default function Timer() {
   const {elapsed, setTimer, startCountdown,isPaused,pauseTimer, resetTimer} = useTimer();
   const [modalOpen, setModalOpen] = useState(false);
@@ -82,6 +86,9 @@ export default function Timer() {
   const hoursRef = useRef();
   const minuteRef = useRef();
   const secondRef = useRef();
+
+
+  const [metricControl,setMetric] =  useState('time');
   function renderTimer(){
     const timeObj = msToTime(elapsed);
     return (
@@ -116,6 +123,23 @@ export default function Timer() {
     setTimer(val);
     setModalOpen(false);
   }
+
+  const metricSetterForms = {
+    time:
+      <StyledModalForm onSubmit={setTimerSpecific}>
+        <input type="number" placeholder={'Hours'} min={0} max={360000} ref={hoursRef}/>
+        <input type="number" placeholder={'Minutes'} min={0} max={360000} ref={minuteRef}/>
+        <input type="number" placeholder={'Seconds'} min={0} max={360000} ref={secondRef}/>
+        <button type="submit">Set Time</button>
+      </StyledModalForm>
+    ,
+    milliseconds:(
+      <StyledModalForm onSubmit={setTimerAmount}>
+        <input type="number" min={0} max={360000} placeholder="miliseconds" ref={timerAmount}/>
+        <button type="submit">Set Time</button>
+      </StyledModalForm>
+    )
+  }
   return (
     <StyledTimer>
       <h2 className="title">Timer</h2>
@@ -140,19 +164,15 @@ export default function Timer() {
                   <h2><CgTimelapse style={{position:'relative',top:'4px'}}/> Set Time</h2>  
                   <StyledButton onClick={()=>{setModalOpen(false)}} className="close-btn"><AiFillCloseSquare /></StyledButton>
               </div>
+              <div className="control-switcher">
+                <h3>Metric</h3>
+                <select name="metric" id="metric" onChange={(e)=>setMetric(e.target.value)}>
+                    <option value="time" defaultChecked>Time</option>
+                    <option value="milliseconds">Millisecond</option>
+                </select>
+              </div>
               <div className="controls">
-                <br />
-                <form onSubmit={setTimerAmount}>
-                    <input type="number" min={0} max={360000} placeholder="miliseconds" ref={timerAmount}/>
-                    <button type="submit">Set Time</button>
-                </form>
-                <br />
-                <form onSubmit={setTimerSpecific}>
-                    <input type="number" placeholder={'Hours'} min={0} max={360000} ref={hoursRef}/>
-                    <input type="number" placeholder={'Minutes'} min={0} max={360000} ref={minuteRef}/>
-                    <input type="number" placeholder={'Seconds'} min={0} max={360000} ref={secondRef}/>
-                    <button type="submit">Set Time</button>
-                </form>
+                {metricSetterForms[metricControl] || <p>ERROR: Metric Not Found Or Hasn't Been Implemented Yet </p>}
               </div>
             </ModalStyling>
       </ReactModal>
