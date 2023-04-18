@@ -19,7 +19,7 @@ export default function LocationList({list}) {
 }
 
 
-function Location({place}){
+export function Location({place}){
     // RealTime MomentJS
     const [lmoment,setLMoment] = useState(moment('00:00:00','HH:mm:ss'));
     const [initStatus,setInitStatus] = useState(false);

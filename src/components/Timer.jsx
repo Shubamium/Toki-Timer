@@ -11,6 +11,7 @@ import { AiFillCloseSquare} from 'react-icons/ai'
 import { CgTimelapse} from 'react-icons/cg'
 import StyledModalForm from "./StyledModalForm";
 
+
 const StyledTimer = styled.div`
   display: flex;
   justify-content: center;
