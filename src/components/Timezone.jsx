@@ -10,7 +10,7 @@ import axios from "axios";
 import moment from "moment-timezone";
 
 const StyledTimezone = styled.div`
-    
+    width: 1000px;
 `
 
 const StyledLocalLocation = styled.div`
@@ -113,8 +113,8 @@ export default function Timezone() {
                     </div>
                 </StyledLocalLocation>
             )}
-            {/* <LocationList list={savedLocation}/> */}
-            {/* <LocationSearch addLocation={handleAddLocation}></LocationSearch> */}
+            <LocationList list={savedLocation}/>
+            <LocationSearch addLocation={handleAddLocation}></LocationSearch>
         </StyledTimezone>
     )
 }

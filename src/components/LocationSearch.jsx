@@ -1,6 +1,26 @@
 import axios from "axios";
 import { useRef, useState } from "react"
 import moment from "moment-timezone";
+import styled from "styled-components";
+
+const StyledLocationSearch = styled.div`
+    & .location-res{
+        background-color: #e8a0bf;
+        padding: .22em 1em;
+        flex-grow: 1;
+        min-width: 30%;
+    }
+    & .search-res{
+        display: flex;
+        justify-content: start;
+        gap: 2em;
+        white-space: nowrap;
+        overflow:auto;
+        padding: 1em;
+        padding-bottom: 1.4em;
+        background-color: #7e777a1d;
+    }
+`
 export default function LocationSearch({addLocation}) {
 
 
@@ -94,16 +114,16 @@ export default function LocationSearch({addLocation}) {
             });
     }
     return (
-        <div>
+        <StyledLocationSearch>
             <h2>Location Search</h2>
             <form onSubmit={searchLocation}>
                 <input type="search" ref={searchQuery} onChange={(e)=>{if(e.target.value === "")setSearchResult([]);}} placeholder="Search a location!" />
                 <button type="submit">Search</button>
             </form>
 
-            <div>
+            <div className="search-res">
                 {searchResult && renderSearchResult(searchResult)}
             </div>
-        </div>
+        </StyledLocationSearch>
     )
 }
