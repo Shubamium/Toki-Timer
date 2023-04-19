@@ -12,6 +12,15 @@ import moment from "moment-timezone";
 const StyledTimezone = styled.div`
     
 `
+
+const StyledLocalLocation = styled.div`
+    
+    background-color: #e8a0bf;
+    padding: 2em;
+    width: 100%;
+    
+`;
+
 export default function Timezone() {
            
     const [currentLocation,setCurrentLocation] = useState();
@@ -47,7 +56,7 @@ export default function Timezone() {
         // Construct the endpoint
         const url = new URL('http://api.positionstack.com/v1/reverse')
         url.searchParams.append('access_key',apiKey);
-        const coord = `${lat},${long}`;
+        const coord = lat + ',' + long;
         url.searchParams.append('query',coord);
 
         url.searchParams.append('limit',1);
@@ -91,16 +100,18 @@ export default function Timezone() {
         <StyledTimezone>
             <h2>Timezone</h2>
             {currentLocation && (
-                <div>
-                    <h2>Current Location:</h2>
-                    <p>Your Local Time:</p>
-                    <p>{today.toLocaleString()}</p>
-                    <h2>Location:</h2>
-                    <p>Lat:{currentLocation.coords.latitude}</p>
-                    <p>Long:{currentLocation.coords.longitude}</p>
-                    {localLocation.name ? <Location place={localLocation}/> : <p>{localLocation.message}</p>}
-
-                </div>
+                <StyledLocalLocation>
+                    <div className="local-current">
+                        <h2>Current Location:</h2>
+                        <p>{today.toLocaleDateString()}</p>
+                        {localLocation.name ? <Location place={localLocation}/> : <p>{localLocation.message}</p>}
+                    </div>
+                    <div class="local-coords">
+                        <h2>Location:</h2>
+                        <p>Lat:{currentLocation.coords.latitude}</p>
+                        <p>Long:{currentLocation.coords.longitude}</p>
+                    </div>
+                </StyledLocalLocation>
             )}
             {/* <LocationList list={savedLocation}/> */}
             {/* <LocationSearch addLocation={handleAddLocation}></LocationSearch> */}
@@ -122,7 +133,7 @@ function getLongitudeTime(long){
 
 
     const miliDelay = miliHour + miliMinute + miliSecond;
-    const stringRes = `${Math.floor(hourDelay)}:${Math.floor(minuteDelay)}:${Math.floor(secondDelay)}` ;
+    const stringRes = `${Math.floor(hourDelay)}:${Math.floor(minuteDelay)}:${Math.floor(secondDelay)}`;
     
     const dateNow = new Date();
     const dateLong = new Date(dateNow.getTime() + miliDelay);
