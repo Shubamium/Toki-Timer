@@ -15,7 +15,7 @@ const StyledTimezone = styled.div`
 
 const StyledLocalLocation = styled.div`
     
-    background-color: #e8a0bf;
+    background-color: #BA90C6;
     padding: 2em;
     width: 100%;
     

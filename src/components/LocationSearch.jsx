@@ -8,9 +8,11 @@ const StyledLocationSearch = styled.div`
         background-color: #e8a0bf;
         padding: .22em 1em;
         flex-grow: 1;
+        border-radius: 1em;
         min-width: 30%;
     }
     & .search-res{
+        margin: 1em;
         display: flex;
         justify-content: start;
         gap: 2em;
