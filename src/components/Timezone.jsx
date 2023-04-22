@@ -113,7 +113,9 @@ export default function Timezone() {
                     </div>
                 </StyledLocalLocation>
             )}
-            <LocationList list={savedLocation}/>
+            <div>
+              <LocationList list={savedLocation}/>
+            </div>
             <LocationSearch addLocation={handleAddLocation}></LocationSearch>
         </StyledTimezone>
     )

@@ -4,6 +4,25 @@ import moment from "moment-timezone"
 import styled from "styled-components"
 
 
+const StyledLocationList = styled.div`
+    padding: 1em;
+    & .location-list{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1em;
+        padding: 1em;
+    }
+
+    & .location-list div:hover{
+        scale: 1.02;
+    }
+
+    & .location_title{
+        font-size: 2rem;
+        color: #534e4f;
+        font-weight: normal;
+    }
+`
 export default function LocationList({list}) {
 
     function renderLocations(list){
@@ -12,10 +31,12 @@ export default function LocationList({list}) {
         })
     }
     return (
-        <div>
-            <h2>Saved</h2>
-            {renderLocations(list)}    
-        </div>
+        <StyledLocationList>
+            <h2 className="location_title">Saved</h2>
+            <div className="location-list">
+                    {renderLocations(list)}    
+            </div>
+        </StyledLocationList>
     )
 }
 
