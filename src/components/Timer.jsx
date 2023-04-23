@@ -95,7 +95,8 @@ const customStyles = {
     border:'2px white',
     padding:'4em 2em',
     paddingTop:'1em',
-    boxShadow:'1px 2px 2px  #8c858541'
+    boxShadow:'1px 2px 2px  #8c858541',
+    minWidth:'300px',
   },
   overlay:{
     opacity:'1'
@@ -140,6 +141,7 @@ export default function Timer() {
     const val = timerAmount.current.value;
     console.log(val);
     setTimer(val);
+    setModalOpen(false);
   }
   function setTimerSpecific(e){
     e.preventDefault();

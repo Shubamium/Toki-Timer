@@ -12,9 +12,14 @@ const StyledLocationList = styled.div`
         gap: 1em;
         padding: 1em;
     }
+    & .location-list > div{
+        border-bottom: 4px solid #90b4c6;
+        background-color: white;
+     }
 
-    & .location-list div:hover{
+    & .location-list > div:hover{
         scale: 1.02;
+        border-bottom: 4px solid #BA90C6;
     }
 
     & .location_title{
@@ -45,6 +50,8 @@ const StyledLocation = styled.div`
     box-shadow: 0px 0px 5px #2a29291c;
     padding: 1em;
     text-align: center;
+    background-color: #fffffff3;
+
     & .tz-info{
         background-color: #2a292910;
         color: #505291;
@@ -63,6 +70,7 @@ const StyledLocation = styled.div`
         font-size: 2.5rem;
         font-weight: bold;
     }
+    
 `
 export function Location({place}){
     // RealTime MomentJS

@@ -18,7 +18,6 @@ const StyledLocalLocation = styled.div`
     background-color: #BA90C6;
     padding: 2em;
     width: 100%;
-    
 `;
 
 export default function Timezone() {
