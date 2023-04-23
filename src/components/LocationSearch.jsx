@@ -2,14 +2,21 @@ import axios from "axios";
 import { useRef, useState } from "react"
 import moment from "moment-timezone";
 import styled from "styled-components";
-
+import StyledButton from "./StyledButton";
+import StyledModalForm from "./StyledModalForm";
 const StyledLocationSearch = styled.div`
     & .location-res{
-        background-color: #e8a0bf;
-        padding: .22em 1em;
+        background-color: #ffffff8c;
+        padding: 2em;
         flex-grow: 1;
         border-radius: 1em;
-        min-width: 30%;
+        min-width: fit-content;
+    }
+    & .location-res h2{
+        font-size: 1.5rem;
+        color: #9466a1;
+
+        font-weight: normal;
     }
     & .search-res{
         margin: 1em;
@@ -20,6 +27,7 @@ const StyledLocationSearch = styled.div`
         overflow:auto;
         padding: 1em;
         padding-bottom: 1.4em;
+     box-shadow: 0px 0px 5px #50505042;
         background-color: #7e777a1d;
     }
 `
@@ -98,18 +106,18 @@ export default function LocationSearch({addLocation}) {
         return searchResult.map((placeObj,index)=>{
                 return (
                     <div className="location-res" key={index}>
-                        <br />
-                        <h2>{placeObj.name}</h2>
-                        <p>{placeObj.coord.lat} || {placeObj.coord.long} </p>
+                       <div className="location-title">
+                            <h2>{placeObj.name}</h2>
+                            <p>{placeObj.coord.lat} - {placeObj.coord.long} </p>
+                       </div>
                         <div className="timezone">
-                            
                             <h3>Timezone</h3>
-                            <p>{placeObj.timezone.moment.format('h:m A || D MMMM YYYY ')}</p>
+                            <p>{placeObj.timezone.moment.format('h:m A - D MMMM YYYY ')}</p>
                             <p>{placeObj.timezone.name}</p>
                             <p>UTC{placeObj.timezone.offset_string}</p>
                         </div>
                         <div className="action">
-                            <button onClick={()=>{handleAdd(placeObj)}}>Add</button>
+                            <StyledButton onClick={()=>{handleAdd(placeObj)}}>Add</StyledButton>
                         </div>
                     </div>
                 )
@@ -118,10 +126,12 @@ export default function LocationSearch({addLocation}) {
     return (
         <StyledLocationSearch>
             <h2>Location Search</h2>
-            <form onSubmit={searchLocation}>
-                <input type="search" ref={searchQuery} onChange={(e)=>{if(e.target.value === "")setSearchResult([]);}} placeholder="Search a location!" />
-                <button type="submit">Search</button>
-            </form>
+            <StyledModalForm onSubmit={searchLocation}>
+                <div className="stack">
+                    <input type="search" ref={searchQuery} onChange={(e)=>{if(e.target.value === "")setSearchResult([]);}} placeholder="Search a location!" />
+                    <StyledButton type="submit">Search</StyledButton>
+                </div>
+            </StyledModalForm>
 
             <div className="search-res">
                 {searchResult && renderSearchResult(searchResult)}

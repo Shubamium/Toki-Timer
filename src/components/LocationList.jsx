@@ -54,7 +54,7 @@ const StyledLocation = styled.div`
 
     & .tz-info{
         background-color: #2a292910;
-        color: #505291;
+        color: #7779c5;
         display: flex;
         justify-content: space-around;
         padding: .5em;
