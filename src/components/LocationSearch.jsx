@@ -5,6 +5,15 @@ import styled from "styled-components";
 import StyledButton from "./StyledButton";
 import StyledModalForm from "./StyledModalForm";
 const StyledLocationSearch = styled.div`
+    background-color: #b3ddf75f;
+    margin: 0 .6em;
+    border-radius: 1em;
+    padding: 2.4em;
+    width:400px;
+    display: flex;
+    flex-direction: column;
+    resize: horizontal;
+    overflow: hidden;
     & .location-res{
         background-color: #ffffff8c;
         padding: 2em;
@@ -22,13 +31,17 @@ const StyledLocationSearch = styled.div`
         margin: 1em;
         display: flex;
         justify-content: start;
+        flex-wrap: wrap;
         gap: 2em;
         white-space: nowrap;
         overflow:auto;
         padding: 1em;
         padding-bottom: 1.4em;
-     box-shadow: 0px 0px 5px #50505042;
+        box-shadow: 0px 0px 5px #50505042;
         background-color: #7e777a1d;
+        max-height: 750px;
+        width: fit-content ;
+        min-width: 100%;
     }
 `
 export default function LocationSearch({addLocation}) {
@@ -108,7 +121,7 @@ export default function LocationSearch({addLocation}) {
                     <div className="location-res" key={index}>
                        <div className="location-title">
                             <h2>{placeObj.name}</h2>
-                            <p>{placeObj.coord.lat} - {placeObj.coord.long} </p>
+                            <p>{placeObj.coord.lat} & {placeObj.coord.long} </p>
                        </div>
                         <div className="timezone">
                             <h3>Timezone</h3>
@@ -129,7 +142,7 @@ export default function LocationSearch({addLocation}) {
             <StyledModalForm onSubmit={searchLocation}>
                 <div className="stack">
                     <input type="search" ref={searchQuery} onChange={(e)=>{if(e.target.value === "")setSearchResult([]);}} placeholder="Search a location!" />
-                    <StyledButton type="submit">Search</StyledButton>
+                    <StyledButton type="submit" style={{height:'fit-content',alignSelf:'center'}}>Search</StyledButton>
                 </div>
             </StyledModalForm>
 

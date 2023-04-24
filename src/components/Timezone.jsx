@@ -10,15 +10,71 @@ import axios from "axios";
 import moment from "moment-timezone";
 
 const StyledTimezone = styled.div`
-    width: 1000px;
+  
+  /* max-width: 1200px; */
+  width: 80vw;
+  height: 65vh;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  padding-bottom: 4em;
+
+  & .tz-content{
+    /* display: grid;  */
+    /* grid-template-columns: 300px 300px; */
+    display: flex;
+    justify-content: left;
+    white-space: nowrap;
+    gap: 1em;
+    width:100%;
+    max-height: 100%;
+  }
+
+  & .wide > div{
+    max-height: 100%;
+  }
+
+  & .search > div{
+    max-height: 100%;
+  }
+
+  & > h2{
+    font-size:1.5rem;
+    color: #534e4fa5;
+    font-weight: 400;
+  }
 `
 
 const StyledLocalLocation = styled.div`
-    
-    background-color: #fecfe3a1;
+    resize: horizontal;
+    overflow: auto;
+
+    background-color: #f7dee9a0;
     padding: 2em;
-    width: 100%;
     border-radius: 10px;
+    min-width: 250px;
+    font-size: small;
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    & .local-current{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 50vh;
+    }
+    & .location{
+        /* display: flex; */
+        /* flex-direction: column; */
+        /* justify-content: center; */
+        /* height: 100%; */
+    }
+    & .location .time{
+        font-size: 1.4rem;
+    }
+    & .location .place-name{
+        font-size: 1rem;
+    }
 `;
 
 export default function Timezone() {
@@ -99,24 +155,26 @@ export default function Timezone() {
     return (
         <StyledTimezone>
             <h2>Timezone</h2>
-            {currentLocation && (
-                <StyledLocalLocation>
-                    <div className="local-current">
-                        <h2>Current Location:</h2>
-                        <p>{today.toLocaleDateString()}</p>
-                        {localLocation.name ? <Location place={localLocation}/> : <p>{localLocation.message}</p>}
-                    </div>
-                    <div class="local-coords">
-                        <h2>Location:</h2>
-                        <p>Lat:{currentLocation.coords.latitude}</p>
-                        <p>Long:{currentLocation.coords.longitude}</p>
-                    </div>
-                </StyledLocalLocation>
-            )}
-            <div>
-              <LocationList list={savedLocation}/>
+            <div className="tz-content">
+                {currentLocation && (
+                        <StyledLocalLocation >
+                            <div className="local-current">
+                                <h2>Current Location:</h2>
+                                {localLocation.name ? <Location className={'localLocation'} withDate={true} place={localLocation}/> : <p>{localLocation.message}</p>}
+                            </div>
+                            <div class="local-coords">
+                                <h2>Location:</h2>
+                                <p>Lat:{currentLocation.coords.latitude}</p>
+                                <p>Long:{currentLocation.coords.longitude}</p>
+                            </div>
+                        </StyledLocalLocation>
+                    )}
+                <LocationSearch addLocation={handleAddLocation}></LocationSearch>
+                <div>
+                    <LocationList list={savedLocation}/>
+                </div>
+               
             </div>
-            <LocationSearch addLocation={handleAddLocation}></LocationSearch>
         </StyledTimezone>
     )
 }

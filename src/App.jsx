@@ -31,6 +31,7 @@ const StyledApp = styled.div`
   & .left .detail:hover{
     scale: 1.04;
   }
+
 ` 
 
 // Header
