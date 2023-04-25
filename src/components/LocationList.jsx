@@ -6,7 +6,8 @@ import styled from "styled-components"
 
 const StyledLocationList = styled.div`
     padding: .2em;
-    max-height: 50%;
+    max-height: 500px;
+    overflow: auto;
 
    
     & .location-list{
