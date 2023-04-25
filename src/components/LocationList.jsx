@@ -7,6 +7,8 @@ import styled from "styled-components"
 const StyledLocationList = styled.div`
     padding: .2em;
     max-height: 50%;
+
+   
     & .location-list{
         /* grid-template-rows: 1fr 1fr; */
         display: flex;

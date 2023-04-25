@@ -51,11 +51,15 @@ const StyledLocalLocation = styled.div`
     background-color: #f7dee9a0;
     padding: 2em;
     border-radius: 10px;
-    min-width: 250px;
+    min-width: 300px;
     font-size: small;
     display: flex;
     flex-direction: column;
     max-width: 500px;
+
+    h2{
+        color:var(--black);
+    }
     & .local-current{
         display: flex;
         flex-direction: column;
@@ -159,11 +163,11 @@ export default function Timezone() {
                 {currentLocation && (
                         <StyledLocalLocation >
                             <div className="local-current">
-                                <h2>Current Location:</h2>
+                                <h2 style={{opacity:'.8'}}>Current Location:</h2>
                                 {localLocation.name ? <Location className={'localLocation'} withDate={true} place={localLocation}/> : <p>{localLocation.message}</p>}
                             </div>
                             <div class="local-coords">
-                                <h2>Location:</h2>
+                                <h2  style={{opacity:'.8'}}>Location:</h2>
                                 <p>Lat:{currentLocation.coords.latitude}</p>
                                 <p>Long:{currentLocation.coords.longitude}</p>
                             </div>

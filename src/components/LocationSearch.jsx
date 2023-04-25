@@ -4,6 +4,8 @@ import moment from "moment-timezone";
 import styled from "styled-components";
 import StyledButton from "./StyledButton";
 import StyledModalForm from "./StyledModalForm";
+
+import {FaArrowRight} from 'react-icons/fa'
 const StyledLocationSearch = styled.div`
     background-color: #b3ddf75f;
     margin: 0 .6em;
@@ -14,28 +16,34 @@ const StyledLocationSearch = styled.div`
     flex-direction: column;
     resize: horizontal;
     overflow: hidden;
+    
+    h2{
+        opacity: .8;
+    }
     & .location-res{
         background-color: #ffffff8c;
-        padding: 2em;
+        padding: 1em;
         flex-grow: 1;
         border-radius: 1em;
         min-width: fit-content;
     }
+    & .location-res p{
+        font-size: .7rem;
+    }
     & .location-res h2{
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         color: #9466a1;
-
         font-weight: normal;
     }
     & .search-res{
-        margin: 1em;
+        margin: .2em;
         display: flex;
         justify-content: start;
         flex-wrap: wrap;
         gap: 2em;
         white-space: nowrap;
         overflow:auto;
-        padding: 1em;
+        padding: .8em;
         padding-bottom: 1.4em;
         box-shadow: 0px 0px 5px #50505042;
         background-color: #7e777a1d;
@@ -121,16 +129,17 @@ export default function LocationSearch({addLocation}) {
                     <div className="location-res" key={index}>
                        <div className="location-title">
                             <h2>{placeObj.name}</h2>
+                            <hr />
                             <p>{placeObj.coord.lat} & {placeObj.coord.long} </p>
                        </div>
                         <div className="timezone">
-                            <h3>Timezone</h3>
+                            {/* <h3>Timezone</h3> */}
                             <p>{placeObj.timezone.moment.format('h:m A - D MMMM YYYY ')}</p>
                             <p>{placeObj.timezone.name}</p>
                             <p>UTC{placeObj.timezone.offset_string}</p>
                         </div>
                         <div className="action">
-                            <StyledButton onClick={()=>{handleAdd(placeObj)}}>Add</StyledButton>
+                            <StyledButton size={'.6rem'} onClick={()=>{handleAdd(placeObj)}}>Add  <FaArrowRight/> </StyledButton>
                         </div>
                     </div>
                 )
