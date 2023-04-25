@@ -191,9 +191,9 @@ function App() {
               <NavLink to={'/world'}>
                  <StyledButton>World Time</StyledButton>
               </NavLink>
-              <NavLink to={'/compare         '}>
+              {/* <NavLink to={'/compare         '}>
                  <StyledButton>Time Compare</StyledButton>
-              </NavLink>
+              </NavLink> */}
         </StyledNav>
     </StyledApp>
   )
