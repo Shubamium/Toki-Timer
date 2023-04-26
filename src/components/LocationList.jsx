@@ -53,7 +53,7 @@ export default function LocationList({list}) {
 
     function renderLocations(list){
         return list.map((place)=>{
-            return <Location place={place}></Location>
+            return <Location key={place.label} place={place}></Location>
         })
     }
     return (

@@ -65,18 +65,13 @@ export default function LocationSearch({addLocation}) {
         // Validation And Initialization
         e.preventDefault();
         const query = searchQuery.current.value;
-        const apiKey = 'e1f5483fcad8a99f2f94b4739460b29f';
         setSearchResult([]);
         if( query === "") return;
         console.log(query);
         
         // Construc the endpoint
-        const url = new URL('http://api.positionstack.com/v1/forward')
-        url.searchParams.append('access_key',apiKey);
-        url.searchParams.append('query',query);
-        url.searchParams.append('limit','5');
-        url.searchParams.append('output','json');
-        url.searchParams.append('timezone_module','1');
+        const url = new URL('https://toki-timer-be.vercel.app/search');
+        url.searchParams.append('name',query);
         
         
         // Fetch Data 
