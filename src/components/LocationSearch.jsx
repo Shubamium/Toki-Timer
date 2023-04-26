@@ -16,6 +16,7 @@ const StyledLocationSearch = styled.div`
     flex-direction: column;
     resize: horizontal;
     overflow: hidden;
+    min-width: 350px;
     
     h2{
         opacity: .8;
@@ -26,6 +27,7 @@ const StyledLocationSearch = styled.div`
         flex-grow: 1;
         border-radius: 1em;
         min-width: fit-content;
+        height: fit-content;
     }
     & .location-res p{
         font-size: .7rem;
@@ -34,6 +36,9 @@ const StyledLocationSearch = styled.div`
         font-size: 1.2rem;
         color: #9466a1;
         font-weight: normal;
+    }
+    & .location-res button svg{
+        margin: .2em .4em;
     }
     & .search-res{
         margin: .2em;
@@ -50,6 +55,7 @@ const StyledLocationSearch = styled.div`
         max-height: 750px;
         width: fit-content ;
         min-width: 100%;
+        height: 100%;
     }
 `
 export default function LocationSearch({addLocation}) {
