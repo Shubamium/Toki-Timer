@@ -110,19 +110,11 @@ export default function Timezone() {
     // Fetch the API for location coordinate
     async function searchLocalPosition(lat,long){
 
-        // Validation And Initialization
-        const apiKey = 'e1f5483fcad8a99f2f94b4739460b29f';
-        
-        // Construct the endpoint
-        const url = new URL('http://api.positionstack.com/v1/reverse')
-        url.searchParams.append('access_key',apiKey);
+    
+        const url = new URL('https://toki-timer-be.vercel.app/home');
         const coord = lat + ',' + long;
-        url.searchParams.append('query',coord);
-
-        url.searchParams.append('limit',1);
-        url.searchParams.append('output','json');
-        url.searchParams.append('timezone_module','1');
-        
+        url.searchParams.append("lat",lat);
+        url.searchParams.append("long",long);
         
         // Fetch Data 
         const queryRes = await axios.get(url);
@@ -166,7 +158,7 @@ export default function Timezone() {
                                 <h2 style={{opacity:'.8'}}>Current Location:</h2>
                                 {localLocation.name ? <Location className={'localLocation'} withDate={true} place={localLocation}/> : <p>{localLocation.message}</p>}
                             </div>
-                            <div class="local-coords">
+                            <div className="local-coords">
                                 <h2  style={{opacity:'.8'}}>Location:</h2>
                                 <p>Lat:{currentLocation.coords.latitude}</p>
                                 <p>Long:{currentLocation.coords.longitude}</p>
