@@ -5,7 +5,7 @@ import styled from "styled-components";
 import StyledButton from "./StyledButton";
 import StyledModalForm from "./StyledModalForm";
 
-import {FaArrowRight} from 'react-icons/fa'
+import {FaArrowRight, FaLocationArrow, FaSearchLocation} from 'react-icons/fa'
 const StyledLocationSearch = styled.div`
     background-color: #b3ddf75f;
     margin: 0 .6em;
@@ -32,13 +32,51 @@ const StyledLocationSearch = styled.div`
     & .location-res p{
         font-size: .7rem;
     }
+    & .location-res hr{
+        opacity: .4;
+        color:#9466a1;
+        margin: .21em 0;
+    }
     & .location-res h2{
         font-size: 1.2rem;
         color: #9466a1;
         font-weight: normal;
     }
+
+    & .location-res button{
+        margin: 1em 0;
+        vertical-align: baseline;
+        display: flex;
+        align-items: center;
+    }
     & .location-res button svg{
-        margin: .2em .4em;
+        margin: .4em .4em;
+    }
+
+    & .location-res .detail_coord{
+        background-color: #8383ca2a;
+        padding: .2em;
+        text-align: center;
+        color: #3a3a3aae;
+    }
+
+    & .location-res .detail_timezone{
+        background-color: #c5c5e32a;
+        padding: .2em;
+        text-align: center;
+        display: flex;
+        justify-content: space-around;
+        border-radius: 5px;
+        padding: 1em;
+        color: #be6262c0;
+        font-size: .5rem ;
+        flex-wrap: wrap;
+    }
+    & .location-res .detail_date{
+        padding: .2em;
+        text-align: center;
+        color: #3a3a3a93;
+        font-size: rem;
     }
     & .search-res{
         margin: .2em;
@@ -131,13 +169,15 @@ export default function LocationSearch({addLocation}) {
                        <div className="location-title">
                             <h2>{placeObj.name}</h2>
                             <hr />
-                            <p>{placeObj.coord.lat} & {placeObj.coord.long} </p>
                        </div>
                         <div className="timezone">
+                            <p className="detail_coord">{placeObj.coord.lat} & {placeObj.coord.long} </p>
+                            <p className="detail_date">{placeObj.timezone.moment.format('h:m A - D MMMM YYYY ')}</p>
                             {/* <h3>Timezone</h3> */}
-                            <p>{placeObj.timezone.moment.format('h:m A - D MMMM YYYY ')}</p>
-                            <p>{placeObj.timezone.name}</p>
-                            <p>UTC{placeObj.timezone.offset_string}</p>
+                            <div className="detail_timezone">
+                                <p>{placeObj.timezone.name}</p>
+                                <p>UTC{placeObj.timezone.offset_string}</p>
+                            </div>
                         </div>
                         <div className="action">
                             <StyledButton size={'.6rem'} onClick={()=>{handleAdd(placeObj)}}>Add  <FaArrowRight/> </StyledButton>
@@ -148,7 +188,7 @@ export default function LocationSearch({addLocation}) {
     }
     return (
         <StyledLocationSearch>
-            <h2>Location Search</h2>
+            <h2> <FaSearchLocation/> Location Search</h2>
             <StyledModalForm onSubmit={searchLocation}>
                 <div className="stack">
                     <input type="search" ref={searchQuery} onChange={(e)=>{if(e.target.value === "")setSearchResult([]);}} placeholder="Search a location!" />

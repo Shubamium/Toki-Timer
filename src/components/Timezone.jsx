@@ -79,6 +79,22 @@ const StyledLocalLocation = styled.div`
     & .location .place-name{
         font-size: 1rem;
     }
+    & .coord{
+        display: flex;
+        justify-content: space-around;
+        background-color: #fb87b929;
+        margin: .2em;
+        padding: .5em;
+    }
+    & .coord h2{
+        font-size:1rem;
+        color: rgb(221, 137, 156);
+        font-weight: normal;
+    }
+    & .coord p{
+        opacity: .8;
+        color: rgb(148, 102, 161);
+    }
 `;
 
 export default function Timezone() {
@@ -159,9 +175,17 @@ export default function Timezone() {
                                 {localLocation.name ? <Location className={'localLocation'} withDate={true} place={localLocation}/> : <p>{localLocation.message}</p>}
                             </div>
                             <div className="local-coords">
-                                <h2  style={{opacity:'.8'}}>Location:</h2>
-                                <p>Lat:{currentLocation.coords.latitude}</p>
-                                <p>Long:{currentLocation.coords.longitude}</p>
+                                <h2 style={{opacity:'.8'}}>Location:</h2>
+                                <div className="coord">
+                                    <div className="lat">
+                                        <h2>Lat</h2>
+                                         <p>{currentLocation.coords.latitude}</p>
+                                    </div>
+                                    <div className="long">
+                                        <h2>Long</h2>
+                                        <p>{currentLocation.coords.longitude}</p>
+                                    </div>
+                                </div>
                             </div>
                         </StyledLocalLocation>
                     )}
