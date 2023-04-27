@@ -9,6 +9,9 @@ import styled from "styled-components";
 import axios from "axios";
 import moment from "moment-timezone";
 
+
+import {BiCurrentLocation} from 'react-icons/bi'
+import {CgEditBlackPoint} from 'react-icons/cg'
 const StyledTimezone = styled.div`
   
   /* max-width: 1200px; */
@@ -81,15 +84,19 @@ const StyledLocalLocation = styled.div`
     }
     & .coord{
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
+
         background-color: #fb87b929;
         margin: .2em;
-        padding: .5em;
+        padding: .5em 2em;
+        text-align:center;
     }
     & .coord h2{
         font-size:1rem;
-        color: rgb(221, 137, 156);
+        /* color: rgb(221, 137, 156); */
+        color: rgba(119, 122, 197, 0.584);
         font-weight: normal;
+        
     }
     & .coord p{
         opacity: .8;
@@ -171,11 +178,11 @@ export default function Timezone() {
                 {currentLocation && (
                         <StyledLocalLocation >
                             <div className="local-current">
-                                <h2 style={{opacity:'.8'}}>Current Location:</h2>
+                                <h2 style={{opacity:'.8'}}><BiCurrentLocation/> Current Location:</h2>
                                 {localLocation.name ? <Location className={'localLocation'} withDate={true} place={localLocation}/> : <p>{localLocation.message}</p>}
                             </div>
                             <div className="local-coords">
-                                <h2 style={{opacity:'.8'}}>Location:</h2>
+                                <h2 style={{opacity:'.5',fontWeight:'normal',textAlign:'center'}}> <CgEditBlackPoint/> Coordinates:</h2>
                                 <div className="coord">
                                     <div className="lat">
                                         <h2>Lat</h2>

@@ -6,6 +6,8 @@ import StyledButton from "./StyledButton";
 import StyledModalForm from "./StyledModalForm";
 
 import {FaArrowRight, FaLocationArrow, FaSearchLocation} from 'react-icons/fa'
+import {TiLocation} from 'react-icons/ti'
+// import { IoLocationSharp } from 'react-icons/io'
 const StyledLocationSearch = styled.div`
     background-color: #b3ddf75f;
     margin: 0 .6em;
@@ -29,6 +31,10 @@ const StyledLocationSearch = styled.div`
         min-width: fit-content;
         height: fit-content;
     }
+
+    input{
+        border-radius: 10px;
+    }
     & .location-res p{
         font-size: .7rem;
     }
@@ -44,10 +50,15 @@ const StyledLocationSearch = styled.div`
     }
 
     & .location-res button{
-        margin: 1em 0;
+        margin-block: 1em;
         vertical-align: baseline;
         display: flex;
         align-items: center;
+    }
+
+    & .location-res .action{
+        display: flex;
+        justify-content: flex-end;
     }
     & .location-res button svg{
         margin: .4em .4em;
@@ -180,7 +191,7 @@ export default function LocationSearch({addLocation}) {
                             </div>
                         </div>
                         <div className="action">
-                            <StyledButton size={'.6rem'} onClick={()=>{handleAdd(placeObj)}}>Add  <FaArrowRight/> </StyledButton>
+                            <StyledButton size={'.7rem'} onClick={()=>{handleAdd(placeObj)}}>Add  <FaArrowRight/> </StyledButton>
                         </div>
                     </div>
                 )
@@ -188,11 +199,11 @@ export default function LocationSearch({addLocation}) {
     }
     return (
         <StyledLocationSearch>
-            <h2> <FaSearchLocation/> Location Search</h2>
+            <h2> <TiLocation/> Location Search</h2>
             <StyledModalForm onSubmit={searchLocation}>
                 <div className="stack">
                     <input type="search" ref={searchQuery} onChange={(e)=>{if(e.target.value === "")setSearchResult([]);}} placeholder="Search a location!" />
-                    <StyledButton type="submit" style={{height:'fit-content',alignSelf:'center'}}>Search</StyledButton>
+                    <StyledButton type="submit" style={{height:'fit-content',alignSelf:'center'}}><FaSearchLocation/></StyledButton>
                 </div>
             </StyledModalForm>
 

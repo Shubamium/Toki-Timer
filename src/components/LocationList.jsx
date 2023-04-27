@@ -3,7 +3,7 @@ import DigitalTime from "./DigitalTimer"
 import moment from "moment-timezone"
 import styled from "styled-components"
 
-
+import {RiMapPinTimeFill} from 'react-icons/ri'
 const StyledLocationList = styled.div`
     padding: .2em;
     max-height: 600px;
@@ -58,7 +58,7 @@ export default function LocationList({list}) {
     }
     return (
         <StyledLocationList>
-            <h2 className="location_title">Saved</h2>
+            <h2 className="location_title"><RiMapPinTimeFill/> Saved</h2>
             <div className="location-list">
                     {renderLocations(list)}    
             </div>
