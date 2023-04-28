@@ -7,6 +7,8 @@ import StyledModalForm from "./StyledModalForm";
 
 import {FaArrowRight, FaLocationArrow, FaSearchLocation} from 'react-icons/fa'
 import {TiLocation} from 'react-icons/ti'
+import { useQuery } from "react-query";
+
 // import { IoLocationSharp } from 'react-icons/io'
 const StyledLocationSearch = styled.div`
     background-color: #b3ddf75f;
@@ -113,6 +115,8 @@ export default function LocationSearch({addLocation}) {
     const searchQuery = useRef();
     const [searchResult,setSearchResult] = useState([]);
 
+    const [searchParam,setSearchParam] = useState('');
+    const {isLoading,refetch,isError,error} = useQuery(['searchRes',searchParam], fetchLocation,{enabled:false,onSuccess:(data)=>manageSearchResult(data.data)});
 
     // Fetch the API for location coordinate
     async function searchLocation(e){
@@ -122,21 +126,24 @@ export default function LocationSearch({addLocation}) {
         const query = searchQuery.current.value;
         setSearchResult([]);
         if( query === "") return;
-        console.log(query);
-        
+        await setSearchParam(query);
+        refetch(['searchRes',searchParam]);
+        // if(queryRes.status === 200){
+        //     console.log(queryRes.data);
+        //     // manageSearchResult(queryRes.data.data);
+        // }else{
+        //     //Show Error
+        // }
+    }
+    async function fetchLocation(queryKey,id){
+         
+        // console.log('ID:',id);
+        console.log('Param:',searchParam);
         // Construc the endpoint
         const url = new URL('https://toki-timer-be.vercel.app/search');
-        url.searchParams.append('name',query);
-        
-        
-        // Fetch Data 
+        url.searchParams.append('name',searchParam);
         const queryRes = await axios.get(url);
-        if(queryRes.status === 200){
-            console.log(queryRes.data);
-            manageSearchResult(queryRes.data.data);
-        }else{
-            //Show Error
-        }
+        return queryRes.data;
     }
 
     function manageSearchResult(queryRes){
@@ -166,7 +173,7 @@ export default function LocationSearch({addLocation}) {
             return placeObj;
         });
 
-        console.log(result,'result');
+        // console.log(result,'result');
         setSearchResult(result);
     }
 
@@ -208,6 +215,12 @@ export default function LocationSearch({addLocation}) {
             </StyledModalForm>
 
             <div className="search-res">
+                {isLoading && 
+                <>
+                    <h2>Finding Location . . .</h2>
+                </>}
+
+                {isError && <p>{error}</p>}
                 {searchResult && renderSearchResult(searchResult)}
             </div>
         </StyledLocationSearch>

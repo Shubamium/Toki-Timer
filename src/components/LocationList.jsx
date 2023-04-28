@@ -4,6 +4,7 @@ import moment from "moment-timezone"
 import styled from "styled-components"
 
 import {RiMapPinTimeFill} from 'react-icons/ri'
+
 const StyledLocationList = styled.div`
     padding: .2em;
     max-height: 600px;
@@ -52,8 +53,8 @@ const StyledLocationList = styled.div`
 export default function LocationList({list}) {
 
     function renderLocations(list){
-        return list.map((place)=>{
-            return <Location key={place.label} place={place}></Location>
+        return list.map((place,index)=>{
+            return <Location key={index} place={place}></Location>
         })
     }
     return (

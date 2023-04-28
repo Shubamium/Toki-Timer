@@ -6,6 +6,7 @@ import Timer from './components/Timer'
 import './index.css'
 import Stopwatch from './components/Stopwatch'
 import Timezone from './components/Timezone'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 const router = createBrowserRouter([
   {
@@ -29,9 +30,14 @@ const router = createBrowserRouter([
 
 ]);
 
+
+const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router}>      
-    </RouterProvider>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router}>      
+      </RouterProvider> 
+    </QueryClientProvider>
   </React.StrictMode>,
 )
