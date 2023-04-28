@@ -33,6 +33,12 @@ const StyledLocationSearch = styled.div`
         min-width: fit-content;
         height: fit-content;
         max-width: 100%;
+        box-shadow: 0px 2px 4px #757ce74e;
+        transition: box-shadow 250ms ease;
+    }
+    & .location-res:hover{
+        box-shadow: 0px 4px 4px #5056a352;
+
     }
 
     input{
