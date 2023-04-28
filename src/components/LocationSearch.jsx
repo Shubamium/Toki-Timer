@@ -32,6 +32,7 @@ const StyledLocationSearch = styled.div`
         border-radius: 1em;
         min-width: fit-content;
         height: fit-content;
+        max-width: 100%;
     }
 
     input{
@@ -49,6 +50,16 @@ const StyledLocationSearch = styled.div`
         font-size: 1.2rem;
         color: #9466a1;
         font-weight: normal;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 250px; /* adjust to your desired length */
+    }
+    .truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px; /* adjust to your desired length */
     }
 
     & .location-res button{
