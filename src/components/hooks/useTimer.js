@@ -11,6 +11,11 @@ export default function useTimer(){
     const pausedAt = useRef(); 
     const countdownOrigin = useRef(); 
   
+
+    // Events
+    const [onUpdateEvent,setOnUpdate] = useState(()=>{});
+
+
     const pauseTimer = () => {
       paused.current = true;
       pausedAt.current = Date.now();
@@ -39,13 +44,13 @@ export default function useTimer(){
           const intervalId = window.setInterval(countDownMili,45);
           interval.current = intervalId;
           setIsPaused(false);
-        }else{
-  
-          const pausedDelay = (Date.now() - pausedAt.current);
-          startUtc.current += pausedDelay;
-          paused.current = false;
-          setIsPaused(false);
-        }
+      }else{
+
+        const pausedDelay = (Date.now() - pausedAt.current);
+        startUtc.current += pausedDelay;
+        paused.current = false;
+        setIsPaused(false);
+      }
     }
     function countDownMili(){
         if(paused.current)return;
@@ -70,7 +75,6 @@ export default function useTimer(){
           // clearInterval(interval.current);
           return;
         }
-        console.log(result);
         setDelayUtc(result);
     }
     function startCountdown(){
@@ -78,6 +82,7 @@ export default function useTimer(){
           console.log('starting');
           startUtc.current = Date.now();
           const intervalId = window.setInterval(countDown,45);
+          onUpdateEvent && onUpdateEvent(delayUtc);
           interval.current = intervalId
           setIsPaused(false);
         }else{
@@ -87,6 +92,6 @@ export default function useTimer(){
           setIsPaused(false);
         }
     }
-    return {elapsed:delayUtc,pauseTimer,resetTimer,startTimer, isPaused,setTimer, startCountdown}
+    return {elapsed:delayUtc,pauseTimer,resetTimer,startTimer, isPaused,setTimer, startCountdown,setOnUpdate}
    
 }

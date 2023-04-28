@@ -10,6 +10,7 @@ import { useState } from "react";
 import { AiFillCloseSquare} from 'react-icons/ai'
 import { CgTimelapse} from 'react-icons/cg'
 import StyledModalForm from "./StyledModalForm";
+import useTitleChanger from "./hooks/useTitleChanger";
 
 
 const StyledTimer = styled.div`
@@ -107,13 +108,14 @@ const customStyles = {
 // Dropdown choose over what type of time
 // Show which form depending on that
 export default function Timer() {
-  const {elapsed, setTimer, startCountdown,isPaused,pauseTimer, resetTimer} = useTimer();
+  const {elapsed, setTimer, startCountdown,isPaused,pauseTimer, resetTimer, setOnUpdate} = useTimer();
   const [modalOpen, setModalOpen] = useState(false);
   const timerAmount = useRef();
   const hoursRef = useRef();
   const minuteRef = useRef();
   const secondRef = useRef();
 
+  const {setTitle,resetTitle} = useTitleChanger();
 
   const [metricControl,setMetric] =  useState('time');
   function renderTimer(){
@@ -124,7 +126,7 @@ export default function Timer() {
   }
   useEffect(()=>{
     // setTimer(5000);
-
+    setTitle('yoooo');
     const secs = timeToMs({
       "hours": 0,
       "minutes": 1,
