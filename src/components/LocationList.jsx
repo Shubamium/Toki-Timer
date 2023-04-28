@@ -50,11 +50,11 @@ const StyledLocationList = styled.div`
         font-size: .8rem;
     }
 `
-export default function LocationList({list}) {
+export default function LocationList({list, listOnClick}) {
 
     function renderLocations(list){
         return list.map((place,index)=>{
-            return <Location key={index} place={place}></Location>
+            return <Location onClick={listOnClick} key={index} place={place}></Location>
         })
     }
     return (
@@ -99,7 +99,7 @@ const StyledLocation = styled.div`
     }
     
 `
-export function Location({place,withDate}){
+export function Location({place,withDate,onClick}){
     // RealTime MomentJS
     const [lmoment,setLMoment] = useState(moment('00:00:00','HH:mm:ss'));
     const [initStatus,setInitStatus] = useState(false);
@@ -115,7 +115,7 @@ export function Location({place,withDate}){
     },[place]);
 
     return(
-        <StyledLocation className="location">
+        <StyledLocation className="location" onClick={()=>{onClick(place.name)}}>
             {initStatus && <DigitalTime className="time">{lmoment.format('h:mm:ss A')}</DigitalTime>}
             
             <h2 className="place-name">{place.name}</h2>

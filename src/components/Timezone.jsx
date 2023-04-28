@@ -12,6 +12,7 @@ import moment from "moment-timezone";
 
 import {BiCurrentLocation} from 'react-icons/bi'
 import {CgEditBlackPoint} from 'react-icons/cg'
+
 const StyledTimezone = styled.div`
   
   /* max-width: 1200px; */
@@ -50,7 +51,7 @@ const StyledTimezone = styled.div`
 const StyledLocalLocation = styled.div`
     resize: horizontal;
     overflow: auto;
-
+    height: 58vh;
     background-color: #f7dee9a0;
     padding: 2em;
     border-radius: 10px;
@@ -171,6 +172,14 @@ export default function Timezone() {
         return placeObj;
     }
 
+    function handleRemoveLocation(name){
+        // console.log(name);
+        // return;
+        setSavedLocation((prev)=>{
+            const without = prev.filter((place)=> place.name !== name);
+            return without;
+        })
+    }
     return (
         <StyledTimezone>
             <h2>Timezone</h2>
@@ -198,7 +207,7 @@ export default function Timezone() {
                     )}
                 <LocationSearch addLocation={handleAddLocation}></LocationSearch>
                 <div>
-                    <LocationList list={savedLocation}/>
+                    <LocationList listOnClick={handleRemoveLocation} list={savedLocation}/>
                 </div>
                
             </div>

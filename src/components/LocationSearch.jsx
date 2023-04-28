@@ -9,7 +9,6 @@ import {FaArrowRight, FaLocationArrow, FaSearchLocation} from 'react-icons/fa'
 import {TiLocation} from 'react-icons/ti'
 import { useQuery } from "react-query";
 
-// import { IoLocationSharp } from 'react-icons/io'
 const StyledLocationSearch = styled.div`
     background-color: #b3ddf75f;
     margin: 0 .6em;
@@ -21,7 +20,8 @@ const StyledLocationSearch = styled.div`
     resize: horizontal;
     overflow: hidden;
     min-width: 350px;
-    height: 60vh;
+    height: 58vh;
+
     h2{
         opacity: .8;
     }
@@ -138,7 +138,7 @@ export default function LocationSearch({addLocation}) {
         setSearchResult([]);
         if( query === "") return;
         await setSearchParam(query);
-        refetch(['searchRes',searchParam]);
+        refetch()
         // if(queryRes.status === 200){
         //     console.log(queryRes.data);
         //     // manageSearchResult(queryRes.data.data);
@@ -149,7 +149,7 @@ export default function LocationSearch({addLocation}) {
     async function fetchLocation(queryKey,id){
          
         // console.log('ID:',id);
-        console.log('Param:',searchParam);
+        console.log('QK:',queryKey.queryKey[1]);
         // Construc the endpoint
         const url = new URL('https://toki-timer-be.vercel.app/search');
         url.searchParams.append('name',searchParam);
