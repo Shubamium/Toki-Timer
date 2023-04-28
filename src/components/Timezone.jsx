@@ -17,7 +17,7 @@ const StyledTimezone = styled.div`
   /* max-width: 1200px; */
   width: 80vw;
   height: 65vh;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
   padding-bottom: 4em;
 

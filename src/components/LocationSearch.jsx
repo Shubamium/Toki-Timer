@@ -21,7 +21,7 @@ const StyledLocationSearch = styled.div`
     resize: horizontal;
     overflow: hidden;
     min-width: 350px;
-    
+    height: 60vh;
     h2{
         opacity: .8;
     }
@@ -56,10 +56,10 @@ const StyledLocationSearch = styled.div`
         max-width: 250px; /* adjust to your desired length */
     }
     .truncate {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 300px; /* adjust to your desired length */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 300px; /* adjust to your desired length */
     }
 
     & .location-res button{
@@ -228,7 +228,7 @@ export default function LocationSearch({addLocation}) {
             <div className="search-res">
                 {isLoading && 
                 <>
-                    <h2>Finding Location . . .</h2>
+                    <p style={{opacity:'.5'}}>Finding Location . . .</p>
                 </>}
 
                 {isError && <p>{error}</p>}
