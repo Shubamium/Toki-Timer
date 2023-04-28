@@ -7,9 +7,9 @@ import {RiMapPinTimeFill} from 'react-icons/ri'
 
 const StyledLocationList = styled.div`
     padding: .2em;
-    max-height: 600px;
     overflow: auto;
-
+    white-space: nowrap;
+    max-height: 60vh;
    
     & .location-list{
         /* grid-template-rows: 1fr 1fr; */
