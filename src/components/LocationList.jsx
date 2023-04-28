@@ -4,6 +4,7 @@ import moment from "moment-timezone"
 import styled from "styled-components"
 
 import {RiMapPinTimeFill} from 'react-icons/ri'
+import { RxCross2 } from "react-icons/rx"
 
 const StyledLocationList = styled.div`
     padding: .2em;
@@ -70,10 +71,31 @@ export default function LocationList({list, listOnClick}) {
 const StyledLocation = styled.div`
     
     box-shadow: 0px 0px 5px #2a29291c;
-    padding: 1em;
+    padding: 1em 1.5em;
     text-align: center;
     background-color: #fffffff3;
    
+    transition: all 150ms ease;
+    &:hover{
+        ${props => props.clickable && `
+            cursor: pointer;
+            scale:1.2;
+
+            & .close-icon{
+                top:10%;
+                opacity:0.6;
+            }
+        `}
+    }
+    .close-icon{
+        /* display:none; */
+        position:absolute;
+        top:13%;
+        right:5%;
+        scale:1.2;
+        opacity:.0;
+        transition:all 200ms ease;
+    }
     & .tz-info{
         background-color: #2a292910;
         color: #7779c5;
@@ -115,7 +137,8 @@ export function Location({place,withDate,onClick}){
     },[place]);
 
     return(
-        <StyledLocation className="location" onClick={()=>{onClick(place.name)}}>
+        <StyledLocation className="location" clickable={onClick} onClick={()=>{if(onClick)onClick(place.name)}}>
+            <RxCross2 className="close-icon"/>
             {initStatus && <DigitalTime className="time">{lmoment.format('h:mm:ss A')}</DigitalTime>}
             
             <h2 className="place-name">{place.name}</h2>

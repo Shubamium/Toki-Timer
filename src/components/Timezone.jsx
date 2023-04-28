@@ -55,7 +55,7 @@ const StyledLocalLocation = styled.div`
     background-color: #f7dee9a0;
     padding: 2em;
     border-radius: 10px;
-    min-width: 300px;
+    min-width: 340px;
     font-size: small;
     display: flex;
     flex-direction: column;
