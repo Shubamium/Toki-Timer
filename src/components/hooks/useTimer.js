@@ -67,6 +67,7 @@ export default function useTimer(){
     function countDown(){
         if(paused.current)return;
         const elapsed = Math.abs(startUtc.current - Date.now());
+        onUpdateEvent && onUpdateEvent(delayUtc);
         const result = countdownOrigin.current - elapsed;
         if(result <= 0){
           resetTimer();
@@ -82,7 +83,6 @@ export default function useTimer(){
           console.log('starting');
           startUtc.current = Date.now();
           const intervalId = window.setInterval(countDown,45);
-          onUpdateEvent && onUpdateEvent(delayUtc);
           interval.current = intervalId
           setIsPaused(false);
         }else{

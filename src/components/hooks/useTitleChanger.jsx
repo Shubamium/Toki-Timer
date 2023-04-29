@@ -8,8 +8,8 @@ export default function useTitleChanger(){
         document.addEventListener('visibilitychange',handleVisibilityChange);
         
         return ()=>{
-            document.removeEventListener('visibilitychange',handleVisibilityChange);
-            resetTitle();
+            // document.removeEventListener('visibilitychange',handleVisibilityChange);
+            // resetTitle();
         }
     });
 

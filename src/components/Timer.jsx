@@ -114,9 +114,13 @@ export default function Timer() {
   const hoursRef = useRef();
   const minuteRef = useRef();
   const secondRef = useRef();
+  const elapsedRef = useRef();
 
-  const {setTitle,resetTitle} = useTitleChanger();
+  // const {setTitle,resetTitle} = useTitleChanger();
 
+  useEffect(()=>{
+    elapsedRef.current = elapsed;
+  },[elapsed])
   const [metricControl,setMetric] =  useState('time');
   function renderTimer(){
     const timeObj = msToTime(elapsed);
@@ -124,18 +128,28 @@ export default function Timer() {
       <DigitalTime size={'5.5rem'} color={timeToMs(timeObj) === 0 ? '#E8A0BF' : '#533d8a9e'} >{timeToString(timeObj)}<span className="ms">{timeObj.msTrimmed}</span></DigitalTime>
     );
   }
+  
   useEffect(()=>{
     // setTimer(5000);
-    setTitle('yoooo');
-    const secs = timeToMs({
-      "hours": 0,
-      "minutes": 1,
-      "seconds": 60,
-      "ms": 0,
-      "msTrimmed": "00"
-    });
+   
+    // let timerInterval = 0; 
+    // timerInterval =  setInterval(()=>{
+    //   const timeObj = msToTime(elapsedRef.current);
+    //   document.title = timeToString(timeObj);
+    // },100)
+    
 
-    // console.log(secs);
+    // const secs = timeToMs({
+    //   "hours": 0,
+    //   "minutes": 1,
+    //   "seconds": 60,
+    //   "ms": 0,
+    //   "msTrimmed": "00"
+    // });
+
+    // return () =>{
+    //   clearInterval(timerInterval);
+    // }
   },[])
 
   function setTimerAmount(e){

@@ -12,6 +12,7 @@ import moment from "moment-timezone";
 
 import {BiCurrentLocation} from 'react-icons/bi'
 import {CgEditBlackPoint} from 'react-icons/cg'
+import { useQuery } from "react-query";
 
 const StyledTimezone = styled.div`
   
@@ -110,6 +111,7 @@ export default function Timezone() {
     const [currentLocation,setCurrentLocation] = useState();
     const [localLocation,setLocalLocation] = useState({});
     const [savedLocation,setSavedLocation] = useState([]);
+
     useEffect(()=>{
         navigator.geolocation.getCurrentPosition((pos)=>{
             setCurrentLocation(pos);
